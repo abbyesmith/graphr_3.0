@@ -38,7 +38,7 @@ export default function ScatterPlot(props){
           y: {
             type: 'linear',
             ticks: {
-              stepSize: 2,
+              stepSize: 1,
               min: -10,
               max: 10,
             },
