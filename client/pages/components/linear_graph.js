@@ -6,7 +6,7 @@ export default function BarChart({chartData}) {
     console.log(chartData)
     return (
         <div>
-
+            <p>test</p>
             {/* <div style = {{width: 700}}>
                 <Bar data = {chartData} />
             </div>
