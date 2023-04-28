@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import ScatterPlot from './linear_graph';
+// import './_app.js'
+
 
 
 export default function Linear_Form() {
-  const [points, setPoints] = useState([{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
+  const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
   
   const handleChange = (e, index) => {
@@ -34,10 +36,20 @@ export default function Linear_Form() {
         
         const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
         const intercept = (sumY - slope * sumX) / n;
+
+        let tss = 0, rss = 0, yMean = sumY / n;
+        for (let i = 0; i < points.length; i++){
+            const y = points[i].y;
+            const yPredicted = slope * points[i].x + intercept;
+            tss += (y - yMean) ** 2;
+            rss += (y - yPredicted) ** 2;
+        }
+
+        const rSquared = 1 - (rss / tss)
         // console.log(slope)
         return {
             equation: `y = ${slope.toFixed(2)}x + ${intercept.toFixed(2)}`,
-            rSquared: `TBD`
+            rSquared: rSquared.toFixed(2)
         }
             
     }
