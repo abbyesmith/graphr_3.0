@@ -1,6 +1,8 @@
-import BarChart from "./components/linear_graph"
+import ScatterPlot from "./components/linear_graph"
+import Linear_Form from "./components/linear_form"
 import { useState } from 'react'
 import { UserData } from './fake_data'
+
 
 export default function GraphPage() {
     console.log('here')
@@ -21,7 +23,8 @@ export default function GraphPage() {
       return(
         <div>
             <h1>Graphr Page</h1>
-            <div className = "App"><BarChart chartData = {userData}/></div>
+            <div><Linear_Form/></div>
+            {/* <div className = "App" style ={{width: 700}}><ScatterPlot /></div> */}
 
         </div>
       )
