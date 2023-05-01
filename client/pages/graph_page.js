@@ -1,4 +1,4 @@
-import ScatterPlot from "./components/linear_graph"
+import ScatterPlot from "./components/linear_scatter"
 import Linear_Form from "./components/linear_form"
 import { useState } from 'react'
 import { UserData } from './fake_data'
@@ -29,9 +29,6 @@ export default function GraphPage() {
             <div><Linear_Form/></div>
             {/* <div className = "App" style ={{width: 700}}><ScatterPlot /></div> */}
             <div><LinearHelp/></div>
-            <iframe width="420" height="315"
-                                src="https://youtu.be/6CFE60iP2Ug">
-                                </iframe>
         </div>
       )
 }
