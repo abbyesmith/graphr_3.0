@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ScatterPlot from './linear_scatter';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
 import LineChart from './lineChart';
+import CopyToClipboardButton from './copy_to_clipboard';
 // import './_app.js'
 
 
 
 export default function Linear_Form() {
+const canvasRef = useRef(null);
+const handleCopyClick = () => {
+    const canvas = canvasRef.current;
+    // const dataURL = canvas.toDataURL();
+    // CopyToClipboardButton({text: dataURL })
+    CopyToClipboardButton({canvasRef})
+}
+
   const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
   const [lobf, setLOBF] = useState("")
@@ -153,7 +162,13 @@ return (
         ))}
         <button type="submit">Submit</button>
       </form>
-      {Plot({lobf, points, slope, intercept})}
+      <div>
+        {Plot({lobf, points, slope, intercept})}
+        <canvas ref = {canvasRef} />
+        {/* <button onClick = {handleCopyClick}>Copy Graph</button> */}
+        < CopyToClipboardButton canvasRef = {canvasRef}/>
+      </div>
+
     </div>
   );
 }

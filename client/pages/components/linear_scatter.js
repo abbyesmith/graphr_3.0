@@ -54,41 +54,41 @@ export default function ScatterPlot(props){
         }
     };
 // The copyChartToClipboard function is broken. Chat with Sam or David
-    useEffect(() => {
-        const copyButton = document.querySelector("#copy-button");
-        copyButton.addEventListener("click", copyChartToClipboard);
+    // useEffect(() => {
+    //     const copyButton = document.querySelector("#copy-button");
+    //     copyButton.addEventListener("click", copyChartToClipboard);
         
-        function copyChartToClipboard() {
-            // Get the chart canvas element
-            setTimeout(() => {
-                const chartCanvas = document.querySelector("#scatterPlot canvas"), width = 700;
-                if (!chartCanvas) {
-                    console.log("canvas not found!");
-                    return;
-                }
+    //     function copyChartToClipboard() {
+    //         // Get the chart canvas element
+    //         setTimeout(() => {
+    //             const chartCanvas = document.querySelector("#scatterPlot canvas"), width = 700;
+    //             if (!chartCanvas) {
+    //                 console.log("canvas not found!");
+    //                 return;
+    //             }
     
-                // Create a new canvas element to copy the chart image to
-                const copyCanvas = document.createElement("canvas");
-                copyCanvas.width = chartCanvas.width;
-                copyCanvas.height = chartCanvas.height;
+    //             // Create a new canvas element to copy the chart image to
+    //             const copyCanvas = document.createElement("canvas");
+    //             copyCanvas.width = chartCanvas.width;
+    //             copyCanvas.height = chartCanvas.height;
               
-                // Copy the chart image to the new canvas element
-                const copyContext = copyCanvas.getContext("2d");
-                copyContext.drawImage(chartCanvas, 0, 0);
+    //             // Copy the chart image to the new canvas element
+    //             const copyContext = copyCanvas.getContext("2d");
+    //             copyContext.drawImage(chartCanvas, 0, 0);
               
-                // Use the Clipboard API to copy the image to the clipboard
-                copyCanvas.toBlob(function(blob) {
-                  const item = new ClipboardItem({'image/png': blob});
-                  navigator.clipboard.write([item]);
-                });
-            }, 100);
-        }
-    }, []);
+    //             // Use the Clipboard API to copy the image to the clipboard
+    //             copyCanvas.toBlob(function(blob) {
+    //               const item = new ClipboardItem({'image/png': blob});
+    //               navigator.clipboard.write([item]);
+    //             });
+    //         }, 100);
+    //     }
+    // }, []);
 
     return (
         <div style = {{width: 700}}>
             <Scatter id="scatterPlot" data={data} options={options} />
-            <button id="copy-button">Copy to Clipboard</button>
+            {/* <button id="copy-button">Copy to Clipboard</button> */}
         </div>
     );
 }
