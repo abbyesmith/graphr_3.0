@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import ScatterPlot from './linear_graph';
+import ScatterPlot from './linear_scatter';
+import {Chart as ChartJS} from "chart.js/auto"
+import { Line } from 'react-chartjs-2'
+// import FakeScatterPlot from './fake_line_combo'
+import LineChart from './lineChart';
 // import './_app.js'
 
 
@@ -7,7 +11,11 @@ import ScatterPlot from './linear_graph';
 export default function Linear_Form() {
   const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
-  
+  const [lobf, setLOBF] = useState("")
+
+  const [slope, setSlope] = useState("")
+  const [intercept, setIntercept] = useState("")
+
   const handleChange = (e, index) => {
       const { name, value } = e.target; 
       setPoints (prevPoints => {
@@ -35,7 +43,11 @@ export default function Linear_Form() {
         }
         
         const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+        console.log(slope)
+        setSlope(slope)
         const intercept = (sumY - slope * sumX) / n;
+        setIntercept(intercept)
+        console.log(intercept)
 
         let tss = 0, rss = 0, yMean = sumY / n;
         for (let i = 0; i < points.length; i++){
@@ -47,18 +59,61 @@ export default function Linear_Form() {
 
         const rSquared = 1 - (rss / tss)
         // console.log(slope)
-        return {
-            equation: `y = ${slope.toFixed(2)}x + ${intercept.toFixed(2)}`,
-            rSquared: rSquared.toFixed(2)
+        
+        //maybe make the linear graph here?
+        const equation = (x) => `${slope.toFixed(2)}x + ${intercept.toFixed(2)}`
+            
+        const data = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Linear Graph',
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                }
+            ]
+        }
+        for (let i = -10; i<=10; i++){
+            data.labels.push(i);
+            data.datasets[0].data.push(equation (i))
+        }
+        const options = {
+            scales: {
+                xAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: false,
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: false,
+                        },
+                    },
+                ],
+            },
         }
             
+        return {
+            equation: `y = ${slope.toFixed(2)}x + ${intercept.toFixed(2)}`,
+            rSquared: rSquared.toFixed(4),
+            data: data,
+            options: options
+        }
     }
     const handleSubmit = (e) => {
       e.preventDefault();
       const lobf = calculateLOBF(points)
+      console.log(lobf.data)
+
+      setLOBF(lobf)
       console.log(lobf);
     };
-
+    
 
 return (
     <div>
@@ -77,9 +132,11 @@ return (
         <button type="submit">Submit</button>
       </form>
       <ScatterPlot points={points} />
-      {/* <p>`Line of best fit: {CalculateLOBF}`</p> */}
+      {/* <FakeScatterPlot points = {points} /> */}
+      {lobf && lobf.rSquared === '1.0000' && <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>}
+      {lobf && lobf.rSquared < '1.0000' && <p>Your points do not form a linear function. Check the Need Help button for additional resources on graphing linear functions</p>}
+      {/* {lobf && <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>} */}
+
     </div>
   );
 }
-
-
