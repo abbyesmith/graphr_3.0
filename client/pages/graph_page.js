@@ -1,12 +1,14 @@
 import ScatterPlot from "./components/linear_scatter"
 import Linear_Form from "./components/linear_form"
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { UserData } from './fake_data'
 import LinearHelp from "./components/linear_help"
 
 
 export default function GraphPage() {
     console.log('here')
+
+    const canvasRef = useRef(null)
     
     const [userData, setUserData] = useState({
         
@@ -26,7 +28,8 @@ export default function GraphPage() {
       return(
         <div>
             <h1>Graphr Page</h1>
-            <div><Linear_Form/></div>
+            <div><Linear_Form canvasRef = {canvasRef}/></div>
+            <canvas ref = {canvasRef}/>
             {/* <div className = "App" style ={{width: 700}}><ScatterPlot /></div> */}
             <div><LinearHelp/></div>
         </div>
