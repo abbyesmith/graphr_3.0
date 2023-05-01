@@ -2,7 +2,6 @@ import { useState } from 'react';
 import ScatterPlot from './linear_scatter';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
-// import FakeScatterPlot from './fake_line_combo'
 import LineChart from './lineChart';
 // import './_app.js'
 
@@ -58,20 +57,28 @@ export default function Linear_Form() {
         }
 
         const rSquared = 1 - (rss / tss)
-        // console.log(slope)
         
-        //maybe make the linear graph here?
         const equation = (x) => `${slope.toFixed(2)}x + ${intercept.toFixed(2)}`
             
         const data = {
             labels: [],
             datasets: [
                 {
-                    label: 'Linear Graph',
+                    // label: 'Linear Graph',
                     data: [],
                     fill: false,
                     borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
+                    borderWidth: 0,
+                },
+                {
+                    label: "Points", 
+                    data: points,
+                    pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointRadius: 8,
+                    pointHoverRadius: 11,
+
                 }
             ]
         }
@@ -113,6 +120,21 @@ export default function Linear_Form() {
       setLOBF(lobf)
       console.log(lobf);
     };
+
+    const Plot = ({lobf, points, slope, intercept})=>{
+        if (!lobf) {
+            return <ScatterPlot points={points}/>;
+        } else if (lobf.rSquared === '1.0000') {
+            return <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>
+        } else {
+            return (
+                <div>
+                    <ScatterPlot points = {points} />
+                    <p>Your points do not form a linear function. Check the Need Help button for additional resources on graphing linear functions</p>
+                </div>
+            )
+        }
+    }
     
 
 return (
@@ -131,12 +153,7 @@ return (
         ))}
         <button type="submit">Submit</button>
       </form>
-      <ScatterPlot points={points} />
-      {/* <FakeScatterPlot points = {points} /> */}
-      {lobf && lobf.rSquared === '1.0000' && <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>}
-      {lobf && lobf.rSquared < '1.0000' && <p>Your points do not form a linear function. Check the Need Help button for additional resources on graphing linear functions</p>}
-      {/* {lobf && <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>} */}
-
+      {Plot({lobf, points, slope, intercept})}
     </div>
   );
 }
