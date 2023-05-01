@@ -36,7 +36,7 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
         })
         .then(r => r.json())
         .then(user => {
-            // console.log(user)
+            console.log(user)
             setloggedIn(true)
         })
         .then(()=> router.push('/login'))
