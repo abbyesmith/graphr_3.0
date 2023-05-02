@@ -64,6 +64,51 @@ class Signup(Resource):
 
 api.add_resource(Signup, '/signupUser', endpoint='signup')
 
+class AllGraphs(Resource):
+    def post(self):
+        
+        request_json = request.get_json()
+
+        type = request_json.get('type')
+        x_1 = request_json.get('x_1')
+        y_1 = request_json.get('y_1')
+        x_2 = request_json.get('x_2')
+        y_2 = request_json.get('y_2')
+        x_3 = request_json.get('x_3')
+        y_3 = request_json.get('y_3')
+        x_4 = request_json.get('x_4')
+        y_4 = request_json.get('y_4')
+        x_5 = request_json.get('x_5')
+        y_5 = request_json.get('y_5')
+        hw_name = request_json.get('hw_name')
+        problem_name = request_json.get('problem_name')
+
+        graph = Graph(
+            type = type,
+            x_1 = x_1,
+            y_1 = y_1,
+            x_2 = x_2,
+            y_2 = y_2,
+            x_3 = x_3,
+            y_3 = y_3,
+            x_4 = x_4,
+            y_4 = y_4,
+            x_5 = x_5,
+            y_5 = y_5,
+            hw_name = hw_name,
+            problem_name = problem_name
+        )
+
+        db.session.add(graph)
+        db.session.commit()
+
+        session ['graph_id'] = graph.id
+
+        print(graph.to_dict(), 201)
+
+api.add_resource(AllGraphs, '/all_graphs', endpoint = "all_graphs")
+
+
 
 class Login(Resource):
 

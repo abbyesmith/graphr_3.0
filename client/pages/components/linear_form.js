@@ -4,35 +4,36 @@ import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
 import LineChart from './lineChart';
 import CopyToClipboardButton from './copy_to_clipboard';
+import SaveGraph from './saveGraph'
 // import './_app.js'
 
 
 
 export default function Linear_Form() {
-const canvasRef = useRef(null);
-const handleCopyClick = () => {
-    const canvas = canvasRef.current;
-    // const dataURL = canvas.toDataURL();
-    // CopyToClipboardButton({text: dataURL })
-    CopyToClipboardButton({canvasRef})
-}
+    const canvasRef = useRef(null);
+    const handleCopyClick = () => {
+        const canvas = canvasRef.current;
+        // const dataURL = canvas.toDataURL();
+        // CopyToClipboardButton({text: dataURL })
+        CopyToClipboardButton({canvasRef})
+    }
 
-  const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
+    const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
-  const [lobf, setLOBF] = useState("")
+    const [lobf, setLOBF] = useState("")
 
-  const [slope, setSlope] = useState("")
-  const [intercept, setIntercept] = useState("")
+    const [slope, setSlope] = useState("")
+    const [intercept, setIntercept] = useState("")
 
-  const handleChange = (e, index) => {
-      const { name, value } = e.target; 
-      setPoints (prevPoints => {
-          const newPoints = [...prevPoints];
-          const point = newPoints[index];
-          console.log(newPoints)
-          point[name] = Number(value);
-          newPoints[index] = point; 
-          return newPoints;
+    const handleChange = (e, index) => {
+        const { name, value } = e.target; 
+        setPoints (prevPoints => {
+            const newPoints = [...prevPoints];
+            const point = newPoints[index];
+            console.log(newPoints)
+            point[name] = Number(value);
+            newPoints[index] = point; 
+            return newPoints;
         })
     };
     
@@ -130,11 +131,18 @@ const handleCopyClick = () => {
       console.log(lobf);
     };
 
-    const Plot = ({lobf, points, slope, intercept})=>{
+    const Plot = ({lobf, points, slope, intercept, newPoints})=>{
         if (!lobf) {
             return <ScatterPlot points={points}/>;
         } else if (lobf.rSquared === '1.0000') {
-            return <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>
+            return (
+                <div>
+                    <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>,
+                    <SaveGraph newPoints = {points}/>
+
+                </div>
+            )
+
         } else {
             return (
                 <div>
