@@ -62,7 +62,7 @@ class Signup(Resource):
             return {'error': '422 Unprocessable Entity'}, 422
 
 
-api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(Signup, '/signupUser', endpoint='signup')
 
 
 class Login(Resource):

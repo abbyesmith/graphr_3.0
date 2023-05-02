@@ -27,7 +27,7 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
             "instructor_email": instructor_email
         }
 
-        fetch ("http://127.0.0.1:5555/signup",{
+        fetch ("http://127.0.0.1:5555/signupUser",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
