@@ -6,6 +6,7 @@ export default function SaveGraph( {newPoints}) {
 
     const [hw_name, setHwName] = useState('');
     const [problem_name, setProblemName] = useState('');
+    const [graphID, setGraphID] = useState("")
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -33,9 +34,13 @@ export default function SaveGraph( {newPoints}) {
             body: JSON.stringify(formData),
         })
         .then(r => r.json())
-        .then(formData => {
-            console.log(formData)
+        .then((formData) => {
+            console.log("success, Graph", formData)
+            setGraphID(formData.id)
+            // console.log(setGraphID)
         })
+
+
     }
 
     return(

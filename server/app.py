@@ -105,10 +105,28 @@ class AllGraphs(Resource):
         session ['graph_id'] = graph.id
 
         print(graph.to_dict(), 201)
+        return(graph.to_dict(), 201)
 
 api.add_resource(AllGraphs, '/all_graphs', endpoint = "all_graphs")
 
+class StudentGraph(Resource):
+    def post(self):
+        request_json = request.get_json()
 
+        student_id = request_json('student_id')
+        graph_id = request_json('graph_id')
+
+        student_graph = Student_Graph (
+            student_id = student_id,
+            graph_id = graph_id
+        )
+
+        db.session.add(student_graph)
+        db.session.commit()
+
+        print(student_graph.to_dict(), 201)
+
+api.add_resource(StudentGraph, '/student_graph')
 
 class Login(Resource):
 
