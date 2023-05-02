@@ -68,9 +68,9 @@ class Graph(db.Model, SerializerMixin):
 
     serialize_rules = ('-student_graphs.graphs', '-student_graphs.students')
 
-    @validates('type')
-    def validate_type(self, key, value):
-        validate_type = ["Linear", "Quadratic"]
+    # @validates('type')
+    # def validate_type(self, key, value):
+    #     validate_type = ["Linear", "Quadratic"]
         # Add more function types here as they are added to the frontend 
 
 # Joint table to store the graph ID attached to the student id that created the graph
