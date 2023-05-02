@@ -13,8 +13,8 @@ export default function NavBar () {
         <div >
             <nav>
                 <span className = "container">
-                    <button><Link href = "/newgraph">New Graph</Link></button>
-                    <button><Link href = "/mygraphs">My Saved Graphs</Link></button>
+                    <button><Link href = "/new_graph">New Graph</Link></button>
+                    <button><Link href = "/my_graphs">My Saved Graphs</Link></button>
                     <button><Link href = "/profile">Profile</Link></button>
                     <button><Link href = "/login">Log in / Log Out</Link></button>
                 </span>

@@ -3,6 +3,7 @@ import Linear_Form from "./components/linear_form"
 import { useState, useRef } from 'react'
 import { UserData } from './fake_data'
 import LinearHelp from "./components/linear_help"
+import NavBar from './navbar';
 
 
 export default function GraphPage() {
@@ -27,6 +28,8 @@ export default function GraphPage() {
 
       return(
         <div>
+            <NavBar/>
+
             <h1>Graphr Page</h1>
             <div><Linear_Form canvasRef = {canvasRef}/></div>
             <canvas ref = {canvasRef}/>
