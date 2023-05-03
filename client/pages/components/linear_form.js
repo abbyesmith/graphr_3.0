@@ -24,27 +24,62 @@ export default function Linear_Form( {currUser}) {
     //         }
     //     });
     // }
-    const [imageData, setImageData] = useState(null);
+    // const [imageData, setImageData] = useState(null);
 
-    function capture() {
-        html2canvas(document.querySelector("#capture")).then(canvas => {
-            setImageData(canvas.toDataURL());
-            });
-    }
-    console.log(imageData)
+    // function capture() {
+    //     html2canvas(document.querySelector("#capture")).then(canvas => {
+    //         setImageData(canvas.toDataURL());
+    //         });
+    // }
+    // console.log(imageData)
 
         
-    function copyToClipboard() {
-            if (imageData) {
+    // function copyToClipboard() {
+    //         if (imageData) {
+    //         navigator.clipboard.write([
+    //             new ClipboardItem({ 'image/png': imageData })
+    //         ]).then(() => {
+    //             console.log('Image copied to clipboard');
+    //         }).catch((error) => {
+    //             console.error('Failed to copy image to clipboard', error);
+    //         });
+    //         }
+    //     }
+
+    function copyToClipboard(dataUrl) {
+        const blob = new Blob([dataUrl], { type: "image/png; charset=utf-8" });
+        const item = new ClipboardItem({ "image/png": blob });
+    
+    
+        navigator.clipboard.write([item]).then(function() {
+        console.log("Copied to clipboard!");
+        }, function(error) {
+        console.error("Failed to copy image to clipboard", error);
+        });
+    }
+    
+    
+    function capture() {
+        html2canvas(document.querySelector("#capture")).then(canvas => {
+        const resultDiv = document.querySelector("#result");
+        if (resultDiv) {
+            resultDiv.appendChild(canvas);
+            const imgData = canvas.toDataURL('image/png');
+            const uintArray = new Uint8Array(atob(imgData.split(',')[1]).split('').map(char => char.charCodeAt()));
+            const blob = new Blob([uintArray], { type: 'image/png' });
             navigator.clipboard.write([
-                new ClipboardItem({ 'image/png': imageData })
+                new ClipboardItem({ [blob.type]: blob })
             ]).then(() => {
                 console.log('Image copied to clipboard');
-            }).catch((error) => {
-                console.error('Failed to copy image to clipboard', error);
+            }).catch(err => {
+                console.error('Failed to copy image to clipboard:', err);
             });
-            }
+        } else {
+            console.log('Result element not found')
         }
+        });
+    }
+    
 
     const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
@@ -165,7 +200,13 @@ export default function Linear_Form( {currUser}) {
         } else if (lobf.rSquared === '1.0000') {
             return (
                 <div>
-                    <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>,
+                    <div id = "capture">                    
+                        <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>,
+                    </div>
+                    <button onClick = {capture}>Take a screenshot</button>
+                    <div id = "result">
+                        <button onClick = {copyToClipboard}>Copy to Clipboard</button>
+                    </div>
                     <SaveGraph newPoints = {points} currUser={currUser}/>
 
                 </div>
@@ -198,13 +239,13 @@ export default function Linear_Form( {currUser}) {
                 ))}
                 <button type="submit">Submit</button>
             </form>
-            <div id = "capture">
+            <div >
                 {Plot({lobf, points, slope, intercept})}
                 <canvas ref = {canvasRef} />
                 {/* <button onClick = {handleCopyClick}>Copy Graph</button> */}
                 {/* < CopyToClipboardButton canvasRef = {canvasRef}/> */}
             </div>
-            <button onClick = {capture}>Take a screenshot</button>
+            {/* <button onClick = {capture}>Take a screenshot</button>
             {imageData && (
                 <div>
                     <p>Image preview:</p>
@@ -212,7 +253,7 @@ export default function Linear_Form( {currUser}) {
                     <button onClick={copyToClipboard}>Copy to clipboard</button>
                 </div>
             )}
-            <div id="result"></div>
+            <div id="result"></div> */}
 
         </div>
     );
