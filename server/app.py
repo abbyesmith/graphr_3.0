@@ -113,8 +113,8 @@ class StudentGraph(Resource):
     def post(self):
         request_json = request.get_json()
 
-        student_id = request_json('student_id')
-        graph_id = request_json('graph_id')
+        student_id = request_json.get('student_id')
+        graph_id = request_json.get('graph_id')
 
         student_graph = Student_Graph (
             student_id = student_id,
@@ -124,7 +124,17 @@ class StudentGraph(Resource):
         db.session.add(student_graph)
         db.session.commit()
 
+        session ['student_graph_id'] = student_graph.id
         print(student_graph.to_dict(), 201)
+        return(student_graph.to_dict(), 201)
+        # data = request.get_json()
+        # new_student_graph = Student_Graph(
+        #     student_id = data['student_id'],
+        #     graph_id = data['graph_id']
+        # )
+        # db.session.add(new_student_graph)
+        # db.session.commit()
+        # return make_response(jsonify(new_student_graph.to_dict()), 201)
 
 api.add_resource(StudentGraph, '/student_graph')
 

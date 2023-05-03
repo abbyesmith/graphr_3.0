@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
+import '../_app.js'
 
-export default function SaveGraph( {newPoints}) {
-    console.log(newPoints)
+export default function SaveGraph( {newPoints, currUser}) {
+    // console.log(newPoints)
     const [type, setType] = useState('Linear');
 
     const [hw_name, setHwName] = useState('');
     const [problem_name, setProblemName] = useState('');
     const [graphID, setGraphID] = useState("")
+    const [newStudentGraphID, setNewStudentGraphID] = useState("")
 
     function handleSubmit(e) {
         e.preventDefault();
-        const formData = {
+        const graphData = {
             "type": type,
             "x_1": newPoints[0].x,
             "y_1": newPoints[0].y,
@@ -31,13 +33,31 @@ export default function SaveGraph( {newPoints}) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(graphData),
         })
         .then(r => r.json())
-        .then((formData) => {
-            console.log("success, Graph", formData)
-            setGraphID(formData.id)
+        .then((graphData) => {
+            // console.log("success, Graph", graphData.id, currUser.id)
+            setGraphID(graphData.id)
             // console.log(setGraphID)
+        })
+        
+        const newStudentGraph = {
+            "student_id": currUser.id,
+            "graph_id": graphID
+        }
+
+        fetch("/student_graph", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newStudentGraph),
+        })
+        .then(r => r.json())
+        .then((newStudentGraph) => {
+            setNewStudentGraphID(newStudentGraph.id)
+            console.log("Success, StudentGraph", newStudentGraph.id, graphID, currUser.id)
         })
 
 
