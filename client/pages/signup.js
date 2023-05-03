@@ -1,5 +1,6 @@
 import {useEffect,useState} from 'react'
 import { Router, useRouter } from 'next/router'
+import Link from 'next/link'; 
 import './_app.js'
 // import db from '../db.json';
 
@@ -52,6 +53,7 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
     return(
         <div>
             <h1>New User Sign Up</h1>
+            <button><Link href = "/login">Already have an accoutn?</Link></button>
             <form onSubmit = {handleSubmit}>
                 <p>Username</p>
                 <input 
