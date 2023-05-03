@@ -84,4 +84,4 @@ class Student_Graph(db.Model, SerializerMixin):
     student = db.relationship('Student', backref = 'student_graphs')
     graph = db.relationship('Graph', backref = 'student_graphs')
 
-    serialize_rules = ('-students.student_graphs', '-graphs.student_graphs')
+    serialize_rules = ('-student.student_graphs', '-graph.student_graphs')

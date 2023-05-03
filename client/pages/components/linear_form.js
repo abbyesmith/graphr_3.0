@@ -9,7 +9,7 @@ import SaveGraph from './saveGraph'
 
 
 
-export default function Linear_Form() {
+export default function Linear_Form( {currUser}) {
     const canvasRef = useRef(null);
     const handleCopyClick = () => {
         const canvas = canvasRef.current;
@@ -138,7 +138,7 @@ export default function Linear_Form() {
             return (
                 <div>
                     <LineChart data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>,
-                    <SaveGraph newPoints = {points}/>
+                    <SaveGraph newPoints = {points} currUser={currUser}/>
 
                 </div>
             )
