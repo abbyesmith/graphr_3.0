@@ -3,19 +3,31 @@ import ScatterPlot from './linear_scatter';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
 import LineChart from './lineChart';
-import CopyToClipboardButton from './copy_to_clipboard';
+// import CopyToClipboardButton from './copy_to_clipboard';
 import SaveGraph from './saveGraph'
+import html2canvas from 'html2canvas'
 // import './_app.js'
 
 
 
 export default function Linear_Form( {currUser}) {
     const canvasRef = useRef(null);
-    const handleCopyClick = () => {
-        const canvas = canvasRef.current;
-        // const dataURL = canvas.toDataURL();
-        // CopyToClipboardButton({text: dataURL })
-        CopyToClipboardButton({canvasRef})
+    // const handleCopyClick = () => {
+    //     const canvas = canvasRef.current;
+    //     // const dataURL = canvas.toDataURL();
+    //     // CopyToClipboardButton({text: dataURL })
+    //     CopyToClipboardButton({canvasRef})
+    // }
+    // html2canvas code:
+    function capture() {
+        html2canvas(document.querySelector("#capture")).then(canvas => {
+            const resultDiv = document.querySelector("#result");
+            if (resultDiv) {
+                resultDiv.appendChild(canvas);
+            } else {
+                console.log('Result element not found')
+            }
+        });
     }
 
     const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
@@ -123,12 +135,12 @@ export default function Linear_Form( {currUser}) {
         }
     }
     const handleSubmit = (e) => {
-      e.preventDefault();
-      const lobf = calculateLOBF(points)
-      console.log(lobf.data)
+        e.preventDefault();
+        const lobf = calculateLOBF(points)
+        console.log(lobf.data)
 
-      setLOBF(lobf)
-      console.log(lobf);
+        setLOBF(lobf)
+        console.log(lobf);
     };
 
     const Plot = ({lobf, points, slope, intercept, newPoints})=>{
@@ -154,29 +166,31 @@ export default function Linear_Form( {currUser}) {
     }
     
 
-return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        {[0, 1, 2, 3, 4].map((index) => (
-          <div key={index}>
-            <label>
-              Point {index + 1}: (
-              <input name="x" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
-              ,
-              <input name="y" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
-              )
-            </label>
-          </div>
-        ))}
-        <button type="submit">Submit</button>
-      </form>
-      <div>
-        {Plot({lobf, points, slope, intercept})}
-        <canvas ref = {canvasRef} />
-        {/* <button onClick = {handleCopyClick}>Copy Graph</button> */}
-        < CopyToClipboardButton canvasRef = {canvasRef}/>
-      </div>
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                {[0, 1, 2, 3, 4].map((index) => (
+                <div key={index}>
+                    <label>
+                    Point {index + 1}: (
+                    <input name="x" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
+                    ,
+                    <input name="y" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
+                    )
+                    </label>
+                </div>
+                ))}
+                <button type="submit">Submit</button>
+            </form>
+            <div id = "capture">
+                {Plot({lobf, points, slope, intercept})}
+                <canvas ref = {canvasRef} />
+                {/* <button onClick = {handleCopyClick}>Copy Graph</button> */}
+                {/* < CopyToClipboardButton canvasRef = {canvasRef}/> */}
+            </div>
+            <button onClick = {capture}>Take a screenshot</button>
+            <div id="result"></div>
 
-    </div>
-  );
+        </div>
+    );
 }
