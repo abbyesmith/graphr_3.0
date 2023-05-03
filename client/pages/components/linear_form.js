@@ -12,23 +12,39 @@ import html2canvas from 'html2canvas'
 
 export default function Linear_Form( {currUser}) {
     const canvasRef = useRef(null);
-    // const handleCopyClick = () => {
-    //     const canvas = canvasRef.current;
-    //     // const dataURL = canvas.toDataURL();
-    //     // CopyToClipboardButton({text: dataURL })
-    //     CopyToClipboardButton({canvasRef})
-    // }
+
     // html2canvas code:
+    // function capture() {
+    //     html2canvas(document.querySelector("#capture")).then(canvas => {
+    //         const resultDiv = document.querySelector("#result");
+    //         if (resultDiv) {
+    //             resultDiv.appendChild(canvas);
+    //         } else {
+    //             console.log('Result element not found')
+    //         }
+    //     });
+    // }
+    const [imageData, setImageData] = useState(null);
+
     function capture() {
         html2canvas(document.querySelector("#capture")).then(canvas => {
-            const resultDiv = document.querySelector("#result");
-            if (resultDiv) {
-                resultDiv.appendChild(canvas);
-            } else {
-                console.log('Result element not found')
-            }
-        });
+            setImageData(canvas.toDataURL());
+            });
     }
+    console.log(imageData)
+
+        
+    function copyToClipboard() {
+            if (imageData) {
+            navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': imageData })
+            ]).then(() => {
+                console.log('Image copied to clipboard');
+            }).catch((error) => {
+                console.error('Failed to copy image to clipboard', error);
+            });
+            }
+        }
 
     const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
@@ -189,6 +205,13 @@ export default function Linear_Form( {currUser}) {
                 {/* < CopyToClipboardButton canvasRef = {canvasRef}/> */}
             </div>
             <button onClick = {capture}>Take a screenshot</button>
+            {imageData && (
+                <div>
+                    <p>Image preview:</p>
+                    <img src = {imageData} />
+                    <button onClick={copyToClipboard}>Copy to clipboard</button>
+                </div>
+            )}
             <div id="result"></div>
 
         </div>
