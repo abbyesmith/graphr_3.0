@@ -153,37 +153,7 @@ class Graph_By_Student_Id(Resource):
         return (serialized_student_graphs), 200
 
 api.add_resource(Graph_By_Student_Id, '/graph_by_student_id/<int:student_id>')
-# This code is getting the AttributeError: 'list' object has no attribute 'to_dict'
 
-# class Graph_By_Student_Id(Resource):
-
-#     def get(self, student_id):
-#         student_graphs = Student_Graph.query.filter_by(student_id=student_id).all()
-#         if not student_graphs:
-#             return {'message': 'No graphs found for this user'}
-#         res = make_response(jsonify(student_graphs.to_dict()), 200)
-#         return res
-
-# api.add_resource(Graph_By_Student_Id, '/graph_by_student_id/<int:student_id>')
-
-
-        # graphs = [student_graph.graph for student_graph in student_graphs]
-        # return jsonify({'graphs': [graph.serialize() for graph in graphs]})
-    # def get(self, student_id):
-    #     student_graphs = Student_Graph.query.filter_by(student_id=student_id).all()
-    #     if not student_graphs:
-    #         return {"message": f"No graphs found for student with id {student_id}"}, 404
-
-    #     graphs = []
-    #     for sg in student_graphs:
-    #         graph = Graph.query.get(sg.graph_id)
-    #         # if not graph:
-    #         #     return {"message": f"No graph found with id {sg.graph_id}"}, 404
-
-    #         graphs.append(graph.serialize())
-
-    #     return {"graphs": graphs}, 200
-    
 
 class One_Student_Graph(Resource):
 
