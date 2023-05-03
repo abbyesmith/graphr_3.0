@@ -13,6 +13,7 @@ flask-migrate = "*"
 flask-restful = "*"
 flask-sqlalchemy = "*"
 flask-cors = "*"
+flask-serialize = "*"
 
 [dev-packages]
 
