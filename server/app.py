@@ -10,6 +10,7 @@
 from flask import request, session, make_response, jsonify
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+# from flask_serialize import SerializerMixin
 
 
 from config import app, db, api
@@ -127,16 +128,72 @@ class StudentGraph(Resource):
         session ['student_graph_id'] = student_graph.id
         print(student_graph.to_dict(), 201)
         return(student_graph.to_dict(), 201)
-        # data = request.get_json()
-        # new_student_graph = Student_Graph(
-        #     student_id = data['student_id'],
-        #     graph_id = data['graph_id']
-        # )
-        # db.session.add(new_student_graph)
-        # db.session.commit()
-        # return make_response(jsonify(new_student_graph.to_dict()), 201)
 
 api.add_resource(StudentGraph, '/student_graph')
+
+# This code gets TypeError: Object of type Response is not JSON serializable
+class Graph_By_Student_Id(Resource):
+
+    def get(self, student_id):
+        student_graphs = Student_Graph.query.filter_by(student_id=student_id).all()
+        if not student_graphs:
+            return {'message': 'No graphs found for this user'}
+        
+        serialized_student_graphs = []
+        for sg in student_graphs:
+            # print(sg.student.to_dict())
+            serialized_student_graphs.append({
+                'id': sg.id,
+                'student_id': sg.student_id,
+                'graph_id': sg.graph_id,
+                # 'student': sg.student.to_dict(),
+                # 'graph': sg.graph.to_dict()
+            })
+        print(serialized_student_graphs)
+        return (serialized_student_graphs), 200
+
+api.add_resource(Graph_By_Student_Id, '/graph_by_student_id/<int:student_id>')
+# This code is getting the AttributeError: 'list' object has no attribute 'to_dict'
+
+# class Graph_By_Student_Id(Resource):
+
+#     def get(self, student_id):
+#         student_graphs = Student_Graph.query.filter_by(student_id=student_id).all()
+#         if not student_graphs:
+#             return {'message': 'No graphs found for this user'}
+#         res = make_response(jsonify(student_graphs.to_dict()), 200)
+#         return res
+
+# api.add_resource(Graph_By_Student_Id, '/graph_by_student_id/<int:student_id>')
+
+
+        # graphs = [student_graph.graph for student_graph in student_graphs]
+        # return jsonify({'graphs': [graph.serialize() for graph in graphs]})
+    # def get(self, student_id):
+    #     student_graphs = Student_Graph.query.filter_by(student_id=student_id).all()
+    #     if not student_graphs:
+    #         return {"message": f"No graphs found for student with id {student_id}"}, 404
+
+    #     graphs = []
+    #     for sg in student_graphs:
+    #         graph = Graph.query.get(sg.graph_id)
+    #         # if not graph:
+    #         #     return {"message": f"No graph found with id {sg.graph_id}"}, 404
+
+    #         graphs.append(graph.serialize())
+
+    #     return {"graphs": graphs}, 200
+    
+
+class One_Student_Graph(Resource):
+
+    def delete(self, id):
+        one_student_graph = Student_Graph.query.filter(Student_Graph.id == id).first()
+        db.session.delete(one_student_graph)
+        db.session.commit()
+        return make_response(jsonify(one_student_graph.to_dict()), 200)
+api.add_resource(One_Student_Graph, '/one_student_graph/<int:id>')
+
 
 class Login(Resource):
 
