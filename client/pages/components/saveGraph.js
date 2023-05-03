@@ -7,9 +7,9 @@ export default function SaveGraph( {newPoints, currUser}) {
 
     const [hw_name, setHwName] = useState('');
     const [problem_name, setProblemName] = useState('');
-    const [graphID, setGraphID] = useState("")
     const [newStudentGraphID, setNewStudentGraphID] = useState("")
-
+    const [graphID, setGraphID] = useState("")
+    
     function handleSubmit(e) {
         e.preventDefault();
         const graphData = {
@@ -39,14 +39,17 @@ export default function SaveGraph( {newPoints, currUser}) {
         .then((graphData) => {
             // console.log("success, Graph", graphData.id, currUser.id)
             setGraphID(graphData.id)
-            // console.log(setGraphID)
+            console.log(graphData.id)
+            handleSubmit2(graphData.id);
         })
         
+    }
+    function handleSubmit2(graphID){
         const newStudentGraph = {
             "student_id": currUser.id,
             "graph_id": graphID
         }
-
+        
         fetch("/student_graph", {
             method: "POST",
             headers: {
@@ -58,10 +61,10 @@ export default function SaveGraph( {newPoints, currUser}) {
         .then((newStudentGraph) => {
             setNewStudentGraphID(newStudentGraph.id)
             console.log("Success, StudentGraph", newStudentGraph.id, graphID, currUser.id)
+            window.alert("Graph saved successfully!")
         })
-
-
     }
+
 
     return(
         <div>
@@ -85,6 +88,7 @@ export default function SaveGraph( {newPoints, currUser}) {
                     <option value = "Quadratic">Quadratic</option>
                 </select>
                 <button type = "submit">Save Graph</button>
+
             </form>
         </div>
     )

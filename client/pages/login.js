@@ -74,8 +74,9 @@ export default function Login ({onLogin, setCurrUser}) {
                     style={{color: "black"}} 
                 />
                 <p></p>
-                <button style={{color: "black"}} type="submit">Login</button>
+                <button type="submit">Login</button>
             </form>
+            <button><Link href = "/signup">Create an account</Link></button>
         </div>
     )
 }
