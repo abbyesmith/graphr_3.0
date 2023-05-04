@@ -63,6 +63,11 @@ class Graph(db.Model, SerializerMixin):
     y_5 = db.Column(db.Integer)
     hw_name = db.Column(db.String)
     problem_name = db.Column(db.String)
+    equation = db.Column(db.String)
+    a = db.Column(db.Float)
+    b = db.Column(db.Float)
+    c = db.Column(db.Float)
+    d = db.Column(db.Float)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 

@@ -1,8 +1,8 @@
-import ScatterPlot from "./components/linear_scatter"
-import Linear_Form from "./components/linear_form"
+import ScatterPlot from "./newGraphComponents/linear_scatter"
+import Linear_Form from "./newGraphComponents/linear_form"
 import { useState, useRef } from 'react'
 import { UserData } from './fake_data'
-import LinearHelp from "./components/linear_help"
+import LinearHelp from "./newGraphComponents/linear_help"
 import NavBar from './navbar';
 import "./_app.js"
 

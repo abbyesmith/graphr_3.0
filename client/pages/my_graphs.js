@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import NavBar from './navbar';
 import './_app.js'
+import MiniGraphs from './miniGraph';
 
 
 export default function MyGraphs({currUser}){
@@ -33,16 +34,18 @@ export default function MyGraphs({currUser}){
         .catch((error)=> console.error(error));
     }
 
-
+    console.log(userGraphs)
     
     return(
         <div>
             <NavBar/>
             <h1>{`Hi ${currUser.username}!`}</h1>
             <h2>My Graphs</h2>
-            {userGraphs.map(graph => (
-                <p>{graph.graph_id}</p>
+            {userGraphs.map(student_graph => (
+                // <p>{student_graph.graph_id}</p>
+                <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id} />
             ))}
+            {/* <MiniGraphs userGraphs = {userGraphs}/> */}
 
         </div>    
     )
