@@ -41,9 +41,11 @@ export default function MyGraphs({currUser}){
             <NavBar/>
             <h1>{`Hi ${currUser.username}!`}</h1>
             <h2>My Graphs</h2>
-            {userGraphs.map(student_graph => (
-                <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id} />
-            ))}
+            <div className="mini-graph-container">
+                {userGraphs.map(student_graph => (
+                    <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id} />
+                ))}
+            </div>
         </div>    
     )
 }

@@ -126,6 +126,7 @@ export default function Linear_Form( {currUser}) {
             data.datasets[0].data.push(equation (i))
         }
         const options = {
+            aspectRatio: 1,
             scales: {
                 xAxes: [
                     {
@@ -168,7 +169,7 @@ export default function Linear_Form( {currUser}) {
             console.log(a)
             return (
                 <div>
-                    <div id = "capture">                    
+                    <div id = "capture" style = {{width: 700}}>                    
                         <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} a = {a} b = {b}/>,
                     </div>
                     <button onClick = {capture}>Take a screenshot</button>
