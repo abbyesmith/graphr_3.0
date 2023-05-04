@@ -3,7 +3,6 @@ import ScatterPlot from './linear_scatter';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
 import LineChart from './lineChart';
-// import CopyToClipboardButton from './copy_to_clipboard';
 import SaveGraph from './saveGraph'
 import html2canvas from 'html2canvas'
 // import './_app.js'
@@ -12,58 +11,43 @@ import html2canvas from 'html2canvas'
 
 export default function Linear_Form( {currUser}) {
     const canvasRef = useRef(null);
+    const [showPopup, setShowPopup] = useState(false);
 
-    // html2canvas code:
-    // function capture() {
-    //     html2canvas(document.querySelector("#capture")).then(canvas => {
-    //         const resultDiv = document.querySelector("#result");
-    //         if (resultDiv) {
-    //             resultDiv.appendChild(canvas);
-    //         } else {
-    //             console.log('Result element not found')
-    //         }
-    //     });
-    // }
-    // const [imageData, setImageData] = useState(null);
-
-    // function capture() {
-    //     html2canvas(document.querySelector("#capture")).then(canvas => {
-    //         setImageData(canvas.toDataURL());
-    //         });
-    // }
-    // console.log(imageData)
-
-        
-    // function copyToClipboard() {
-    //         if (imageData) {
-    //         navigator.clipboard.write([
-    //             new ClipboardItem({ 'image/png': imageData })
-    //         ]).then(() => {
-    //             console.log('Image copied to clipboard');
-    //         }).catch((error) => {
-    //             console.error('Failed to copy image to clipboard', error);
-    //         });
-    //         }
-    //     }
 
     function copyToClipboard(dataUrl) {
         const blob = new Blob([dataUrl], { type: "image/png; charset=utf-8" });
         const item = new ClipboardItem({ "image/png": blob });
-    
-    
+
         navigator.clipboard.write([item]).then(function() {
-        console.log("Copied to clipboard!");
+            console.log("Copied to clipboard!");
         }, function(error) {
-        console.error("Failed to copy image to clipboard", error);
+            console.error("Failed to copy image to clipboard", error);
         });
     }
     
+    // function capture() {
+    //     html2canvas(document.querySelector("#capture")).then(canvas => {
+    //     const resultDiv = document.querySelector("#result");
+    //     if (resultDiv) {
+    //         resultDiv.appendChild(canvas);
+    //         const imgData = canvas.toDataURL('image/png');
+    //         const uintArray = new Uint8Array(atob(imgData.split(',')[1]).split('').map(char => char.charCodeAt()));
+    //         const blob = new Blob([uintArray], { type: 'image/png' });
+    //         navigator.clipboard.write([
+    //             new ClipboardItem({ [blob.type]: blob })
+    //         ]).then(() => {
+    //             console.log('Image copied to clipboard');
+    //         }).catch(err => {
+    //             console.error('Failed to copy image to clipboard:', err);
+    //         });
+    //     } else {
+    //         console.log('Result element not found')
+    //     }
+    //     });
+    // }
     
     function capture() {
         html2canvas(document.querySelector("#capture")).then(canvas => {
-        const resultDiv = document.querySelector("#result");
-        if (resultDiv) {
-            resultDiv.appendChild(canvas);
             const imgData = canvas.toDataURL('image/png');
             const uintArray = new Uint8Array(atob(imgData.split(',')[1]).split('').map(char => char.charCodeAt()));
             const blob = new Blob([uintArray], { type: 'image/png' });
@@ -71,15 +55,16 @@ export default function Linear_Form( {currUser}) {
                 new ClipboardItem({ [blob.type]: blob })
             ]).then(() => {
                 console.log('Image copied to clipboard');
+                setShowPopup(true);
             }).catch(err => {
                 console.error('Failed to copy image to clipboard:', err);
             });
-        } else {
-            console.log('Result element not found')
-        }
         });
     }
-    
+
+    function handlePopupClose() {
+        setShowPopup(false)
+    }
 
     const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
@@ -204,9 +189,41 @@ export default function Linear_Form( {currUser}) {
                         <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>,
                     </div>
                     <button onClick = {capture}>Take a screenshot</button>
-                    <div id = "result">
+                    {showPopup && (
+                        <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        }}
+                        onClick={handlePopupClose}
+                        >
+                            <div
+                                style={{
+                                backgroundColor: 'white',
+                                padding: 16,
+                                borderRadius: 8,
+                                }}
+                                onClick={(event) => {
+                                event.stopPropagation();
+                                }}
+                            >
+                                <h2>Success, the image is saved to your clipboard. Now head over to the document you'd like to post your image.</h2>
+                                <div id="result"></div>
+                                <button onClick={handlePopupClose}>Close</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* <div id = "result">
                         <button onClick = {copyToClipboard}>Copy to Clipboard</button>
-                    </div>
+                    </div> */}
                     <SaveGraph newPoints = {points} currUser={currUser}/>
 
                 </div>
