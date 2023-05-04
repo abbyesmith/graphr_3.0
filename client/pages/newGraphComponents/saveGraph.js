@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import '../_app.js'
 
-export default function SaveGraph( {newPoints, currUser}) {
+export default function SaveGraph( {newPoints, currUser, equation, a, b}) {
     // console.log(newPoints)
+    console.log(a, b)
+    console.log(equation)
     const [type, setType] = useState('Linear');
 
     const [hw_name, setHwName] = useState('');
@@ -25,7 +27,10 @@ export default function SaveGraph( {newPoints, currUser}) {
             "x_5": newPoints[4].x,
             "y_5": newPoints[4].y,
             "hw_name": hw_name,
-            "problem_name": problem_name            
+            "problem_name": problem_name,         
+            "equation": equation,
+            "a": a,
+            "b": b 
         }
 
         fetch ("/all_graphs", {

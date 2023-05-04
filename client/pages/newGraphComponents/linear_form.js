@@ -25,26 +25,6 @@ export default function Linear_Form( {currUser}) {
         });
     }
     
-    // function capture() {
-    //     html2canvas(document.querySelector("#capture")).then(canvas => {
-    //     const resultDiv = document.querySelector("#result");
-    //     if (resultDiv) {
-    //         resultDiv.appendChild(canvas);
-    //         const imgData = canvas.toDataURL('image/png');
-    //         const uintArray = new Uint8Array(atob(imgData.split(',')[1]).split('').map(char => char.charCodeAt()));
-    //         const blob = new Blob([uintArray], { type: 'image/png' });
-    //         navigator.clipboard.write([
-    //             new ClipboardItem({ [blob.type]: blob })
-    //         ]).then(() => {
-    //             console.log('Image copied to clipboard');
-    //         }).catch(err => {
-    //             console.error('Failed to copy image to clipboard:', err);
-    //         });
-    //     } else {
-    //         console.log('Result element not found')
-    //     }
-    //     });
-    // }
     
     function capture() {
         html2canvas(document.querySelector("#capture")).then(canvas => {
@@ -70,8 +50,8 @@ export default function Linear_Form( {currUser}) {
 
     const [lobf, setLOBF] = useState("")
 
-    const [slope, setSlope] = useState("")
-    const [intercept, setIntercept] = useState("")
+    const [a, setA] = useState("")
+    const [b, setB] = useState("")
 
     const handleChange = (e, index) => {
         const { name, value } = e.target; 
@@ -99,24 +79,25 @@ export default function Linear_Form( {currUser}) {
             sumX2 += x * x;
         }
         
-        const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-        console.log(slope)
-        setSlope(slope)
-        const intercept = (sumY - slope * sumX) / n;
-        setIntercept(intercept)
-        console.log(intercept)
+        const a = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+        console.log(a)
+        setA(a)
+        const b = (sumY - a * sumX) / n;
+        setB(b)
+        console.log(b)
 
         let tss = 0, rss = 0, yMean = sumY / n;
         for (let i = 0; i < points.length; i++){
             const y = points[i].y;
-            const yPredicted = slope * points[i].x + intercept;
+            const yPredicted = a * points[i].x + b;
             tss += (y - yMean) ** 2;
             rss += (y - yPredicted) ** 2;
         }
 
         const rSquared = 1 - (rss / tss)
         
-        const equation = (x) => `${slope.toFixed(2)}x + ${intercept.toFixed(2)}`
+        const equation = (x) => `${a.toFixed(2)}x + ${b.toFixed(2)}`
+
             
         const data = {
             labels: [],
@@ -164,7 +145,7 @@ export default function Linear_Form( {currUser}) {
         }
             
         return {
-            equation: `y = ${slope.toFixed(2)}x + ${intercept.toFixed(2)}`,
+            equation: `y = ${a.toFixed(2)}x + ${b.toFixed(2)}`,
             rSquared: rSquared.toFixed(4),
             data: data,
             options: options
@@ -177,16 +158,18 @@ export default function Linear_Form( {currUser}) {
 
         setLOBF(lobf)
         console.log(lobf);
+        console.log(a, b)
     };
 
-    const Plot = ({lobf, points, slope, intercept, newPoints})=>{
+    const Plot = ({lobf, points, newPoints})=>{
         if (!lobf) {
             return <ScatterPlot points={points}/>;
         } else if (lobf.rSquared === '1.0000') {
+            console.log(a)
             return (
                 <div>
                     <div id = "capture">                    
-                        <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} slope = {slope} intercept = {intercept}/>,
+                        <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} a = {a} b = {b}/>,
                     </div>
                     <button onClick = {capture}>Take a screenshot</button>
                     {showPopup && (
@@ -220,12 +203,7 @@ export default function Linear_Form( {currUser}) {
                             </div>
                         </div>
                     )}
-
-                    {/* <div id = "result">
-                        <button onClick = {copyToClipboard}>Copy to Clipboard</button>
-                    </div> */}
-                    <SaveGraph newPoints = {points} currUser={currUser}/>
-
+                    <SaveGraph newPoints = {points} currUser={currUser} equation = {lobf.equation} a = {a} b ={b}/>
                 </div>
             )
 
@@ -257,21 +235,9 @@ export default function Linear_Form( {currUser}) {
                 <button type="submit">Submit</button>
             </form>
             <div >
-                {Plot({lobf, points, slope, intercept})}
+                {Plot({lobf, points, a, b})}
                 <canvas ref = {canvasRef} />
-                {/* <button onClick = {handleCopyClick}>Copy Graph</button> */}
-                {/* < CopyToClipboardButton canvasRef = {canvasRef}/> */}
             </div>
-            {/* <button onClick = {capture}>Take a screenshot</button>
-            {imageData && (
-                <div>
-                    <p>Image preview:</p>
-                    <img src = {imageData} />
-                    <button onClick={copyToClipboard}>Copy to clipboard</button>
-                </div>
-            )}
-            <div id="result"></div> */}
-
         </div>
     );
 }

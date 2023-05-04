@@ -3,16 +3,16 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-const LineChart = ({ data, options, lineEquation, slope, intercept }) => {
+const LineChart = ({ data, options, lineEquation, a, b }) => {
   const yValues = [];
-  console.log(slope)
-  console.log(intercept)
+  console.log(a)
+  console.log(b)
   for (let x = -10; x <= 10; x++) {
-    yValues.push(slope * x + intercept);
+    yValues.push(a * x + b);
   }
 
   data.datasets.push({
-    label: `y = ${slope}x + ${intercept}`,
+    label: `y = ${a}x + ${b}`,
     data: yValues,
     fill: false,
     borderColor: 'blue',

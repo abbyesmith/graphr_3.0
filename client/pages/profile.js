@@ -49,8 +49,8 @@ export default function Profile({ currUser }) {
     const handleConfirmDelete = async () => {
         const response = await fetch(`http://127.0.0.1:5555//profile/${currUser.id}`, {
             method: 'DELETE',
-          });
-          window.location.href = '/';
+        });
+        window.location.href = '/';
     }
 
     const handleCancelDelete = () => {
