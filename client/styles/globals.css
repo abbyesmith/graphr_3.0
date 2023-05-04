@@ -100,3 +100,17 @@ body.active-help {
   visibility: visible;
   opacity: 1;
 }
+
+/* minigraphs */
+.mini-graph-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2%, 2%
+}
+
+.mini-graph {
+  width: 20%;
+  margin-right: 2%;
+}
