@@ -9,14 +9,7 @@ export default function MiniGraphs({graph_id}){
     useEffect(() => {
         getGraphs();
     },[graph_id])
-    
-    // This will need to change!!!! 89 is just for testing purposes
-    // const id = userGraphs.graph_id
 
-    // console.log(userGraphs.graph_id)
-    // const id = userGraphs.map(student_graph => (
-    //     console.log(student_graph.graph_id)
-    // ))
     const getGraphs = () => {
         fetch (`/graph_by_id/${graph_id}`,{
             method: "GET",
@@ -33,8 +26,7 @@ export default function MiniGraphs({graph_id}){
         })
         .catch((error) => console.error(error))
     }
-    // const equation = info[0].equation
-    // console.log(equation)
+
     const a = miniGraph[0]?.a
     const b = miniGraph[0]?.b
 
@@ -59,15 +51,16 @@ export default function MiniGraphs({graph_id}){
             xAxes: [
                 {
                     ticks: {
-                        beginAtZero: false,
+                        min: -10,
+                        max: 10,
                     },
                 },
             ],
             yAxes: [
                 {
                     ticks: {
-                        beginAtZero: false,
-                    },
+                        min: -10,
+                        max: 10,                    },
                 },
             ],
         },
@@ -79,7 +72,6 @@ export default function MiniGraphs({graph_id}){
     }
 
     data.datasets.push({
-        // This will need to be an if/else based on the type of equation
         label: `y = ${a}x + ${b}`,
         data: yValues,
         fill: false,
