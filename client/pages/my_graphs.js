@@ -42,11 +42,8 @@ export default function MyGraphs({currUser}){
             <h1>{`Hi ${currUser.username}!`}</h1>
             <h2>My Graphs</h2>
             {userGraphs.map(student_graph => (
-                // <p>{student_graph.graph_id}</p>
                 <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id} />
             ))}
-            {/* <MiniGraphs userGraphs = {userGraphs}/> */}
-
         </div>    
     )
 }
