@@ -262,37 +262,3 @@ body.active-help {
   width: 20%;
   margin-right: 2%;
 }
-
-/* Function Page CSS */
-
-.function {
-  font-size: larger;
-  padding: 3;
-}
-/* General CSS */
-
-
-/* Footer CSS */
-.footer {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-}
-
-/* Form CSS */
-.form-btns{
-  display: inline-flex;
-  gap: 15%;
-  width: 40%;
-}
-
-.inputField{
-  padding: 0.5%;
-  margin-left: 5%
-}
-
-/* Home Page */
-
-/* .content {
-  display: none;
-} */
