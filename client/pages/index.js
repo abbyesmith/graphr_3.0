@@ -12,7 +12,6 @@ export default function Home() {
       <h1>Welcome to Graphr Take 3</h1>
       <button><Link href = "/login">Existing User Log In</Link></button>
       <button><Link href = "/signup">New User Sign Up</Link></button>
-      
     </div>
   )
 }
