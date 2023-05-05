@@ -132,18 +132,34 @@ export default function Linear_Form( {currUser}) {
                     {
                         ticks: {
                             beginAtZero: false,
+                            fontColor: 'black',
+                            fontWeight: 'bold'
                         },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'X Axis Label',
+                            fontColor: 'black',
+                            fontWeight: 'bold'
+                        }
                     },
                 ],
                 yAxes: [
                     {
                         ticks: {
                             beginAtZero: false,
+                            fontColor: 'black',
+                            fontWeight: 'bold'
                         },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Y Axis Label',
+                            fontColor: 'black',
+                            fontWeight: 'bold'
+                        }
                     },
                 ],
             },
-        }
+        };
             
         return {
             equation: `y = ${a.toFixed(2)}x + ${b.toFixed(2)}`,
@@ -170,7 +186,7 @@ export default function Linear_Form( {currUser}) {
             return (
                 <div>
                     <div id = "capture" style = {{width: 700}}>                    
-                        <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} a = {a} b = {b}/>,
+                        <LineChart  data = {lobf.data} options = {lobf.options} lineEquation={lobf.equation} a = {a} b = {b}/>,
                     </div>
                     <button onClick = {capture}>Take a screenshot</button>
                     {showPopup && (

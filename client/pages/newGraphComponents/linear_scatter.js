@@ -21,38 +21,73 @@ export default function ScatterPlot(props){
                       
         }]
     }
-
     const options = {
-        scales: {
-          x: {
-            type: 'linear',
-            position: 'bottom',
-            ticks: {
-              stepSize: 1,
-              min: -10,
-              max: 10,
-            },
-            grid: {
-              display: true,
-              color: 'grey',
-              borderWidth: 6, //this makes the x-axis bold
-            }
-          },
-          y: {
-            type: 'linear',
-            ticks: {
-              stepSize: 1,
-              min: -10,
-              max: 10,
-            },
-            grid: {
-              display: true,
-              color: 'grey',
-              borderWidth: 9, //the makes the y-axis bold
-            }
-          }
-        }
-    };
+      aspectRatio: 1,
+      scales: {
+          xAxes: [
+              {
+                  ticks: {
+                      beginAtZero: false,
+                      stepSize: 1,
+                      fontColor: 'black',
+                      fontWeight: 'bold'
+                  },
+                  scaleLabel: {
+                      display: true,
+                      labelString: 'X Axis',
+                      fontColor: 'black',
+                      fontWeight: 'bold'
+                  }
+              },
+          ],
+          yAxes: [
+              {
+                  ticks: {
+                      beginAtZero: false,
+                      fontColor: 'black',
+                      fontWeight: 'bold'
+                  },
+                  scaleLabel: {
+                      display: true,
+                      labelString: 'Y Axis Label',
+                      fontColor: 'black',
+                      fontWeight: 'bold'
+                  }
+              },
+          ],
+      },
+  };
+    // const options = {
+    //     scales: {
+    //       x: {
+    //         type: 'linear',
+    //         position: 'bottom',
+    //         ticks: {
+    //           stepSize: 1,
+    //           min: -10,
+    //           max: 10,
+    //         },
+    //         grid: {
+    //           display: true,
+    //           color: 'grey',
+    //           borderWidth: 6, //this makes the x-axis bold
+    //         }
+    //       },
+    //       y: {
+    //         type: 'linear',
+    //         ticks: {
+    //           stepSize: 1,
+    //           min: -10,
+    //           max: 10,
+    //         },
+    //         grid: {
+    //           display: true,
+    //           color: 'grey',
+    //           borderWidth: 9, //the makes the y-axis bold
+    //         }
+    //       }
+    //     }
+    // };
 
 
     return (
