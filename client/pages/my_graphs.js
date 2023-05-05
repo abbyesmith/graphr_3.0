@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import NavBar from './navbar';
 import './_app.js'
-import MiniGraphs from './miniGraph';
+import MiniGraphs from './myGraphComponents/miniGraph';
 
 
 export default function MyGraphs({currUser}){

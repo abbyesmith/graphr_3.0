@@ -19,7 +19,21 @@
 
 /* Need Help Popup */
 body.active-help {
-  overflow-y: hidden;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.help-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.help-content::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 8px;
+}
+
+.help-content::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
 }
 
 .btn-help {

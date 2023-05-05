@@ -3,7 +3,6 @@ import { Router, useRouter } from 'next/router'
 import Link from 'next/link'
 import './_app.js'
 
- 
 
 
 export default function NavBar () {
