@@ -4,3 +4,14 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://api.emailjs.com/:path*", // replace with your email sending API domain
+      },
+    ];
+  },
+};
