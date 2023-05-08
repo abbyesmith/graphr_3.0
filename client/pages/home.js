@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link'; 
 import NavBar from './navbar';
 import './_app.js'
-
+import Footer from './footer';
 
 export default function Home ({currUser}) {
     // use this when you are using currUser 
@@ -16,9 +16,9 @@ export default function Home ({currUser}) {
     return (
         <div>
             <NavBar/>
-            <h1>{`Hi ${currUser.username}!`}</h1>
-            <h2>sup</h2>
-
+            <h1>{`Welcome to Graphr ${currUser.username}!`}</h1>
+            <h2>Graphr is a new site that helps students complete traditional graphing worksheets in a digital space</h2>
+            <Footer />
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react'
 import { Router, useRouter } from 'next/router'
 import Link from 'next/link'; 
-import './_app.js'
+import '../_app.js'
 // import db from '../db.json';
 
 
@@ -13,17 +13,16 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
     // const [image, setImage] = useState("")
     const [instructor_name, setInstructorName] = useState("");
     const [instructor_email, setInstructorEmail]= useState("")
+    const [showAlert, setShowAlert] = useState(false)
     const router = useRouter()
 
 
- 
     function handleSubmit(e) {
         e.preventDefault();
         const data = {
             "username": username,
             "password": password,
             "email": email,
-            // "image": image,
             "instructor_name": instructor_name,
             "instructor_email": instructor_email
         }
@@ -39,21 +38,29 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
         .then(user => {
             console.log(user)
             setloggedIn(true)
+            setShowAlert(true)
         })
-        .then(()=> router.push('/login'))
+        // .then(()=> alert("Account successfully created. Please login to access Graphr"))
     }
 
-    // const animals = db.image_options.map((option) => (
-    //     <option key={option.id} value={option.image}>
-    //       <img src={option.image} alt={option.nickname} width="30" height="30" />
-    //       {option.nickname}
-    //     </option>
-    //   ));
+    useEffect(() => {
+        if (showAlert){
+            alert('Account successfully create. Please login to access Graphr')
+            setUsername('')
+            setPassword('')
+            setEmail('')
+            setInstructorName('')
+            setInstructorEmail('')
+            setShowAlert(false)
+        }
+
+    })
+
 
     return(
-        <div>
+        <div className = "signup">
             <h1>New User Sign Up</h1>
-            <button><Link href = "/login">Already have an accoutn?</Link></button>
+            {/* <button><Link href = "/login">Already have an accoutn?</Link></button> */}
             <form onSubmit = {handleSubmit}>
                 <p>Username</p>
                 <input 
@@ -73,17 +80,6 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
                     value={email} 
                     onChange = {(e)=>setEmail(e.target.value)}
                 />
-                {/* <p>Spirit Animal</p>
-                <select value={image} onChange={(e) => setImage(e.target.value)}>
-                    <option value="">Select an animal</option>
-                    {animals}
-                </select> */}
-                {/* <p>Image</p>
-                <input
-                    type = "text" 
-                    value = {image} 
-                    onChange = {(e)=>setImage(e.target.value)}
-                /> */}
                 <p>Instructor Name</p>
                 <input 
                     type="text" 

@@ -1,8 +1,8 @@
 /* @tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
-/* :root {
+:root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,8 +14,140 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
 } */
+
+body {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+/* navBar */
+.bm-burger-button {
+  
+  width: 36px;
+  height: 30px;
+  left: 36px;
+
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: #373a47;
+}  
+
+.bm-burger-bars-hover {
+  background: #a90000;
+
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+.bm-menu {
+  background: #373a47;
+  padding: 0.3rem 0.3rem 0;
+  font-size: 1.15em;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+.bm-item {
+  display: inline-block;
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+/* styling next link component so that will be a column list of links*/
+.bm-item-list a {
+  display: flex;
+  flex-direction: column;
+}
+
+/* NavBar CSS */
+
+
+
+/* Sign in box CSS */
+
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(to right, #b4c5e4, #090c9b);
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.login,
+.signup {
+  width: 45%;
+}
+
+.signup {
+  color: #fbfff1;
+  padding-right: 15px;
+}
+
+input[type="text"], input[type="email"], input[type="password"], button {
+  border-radius: 5px;
+  background-color: #fbfff1;
+  color: #333;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 16px;
+  border: none;
+}
+
+button {
+  background-color: #090c9b;
+  color: #fbfff1;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+button:hover, button:focus {
+  background-color: #b4c5e4;
+}
+
+
+@media (max-width: 600px) {
+  .box {
+    flex-direction: column;
+  }
+
+  .login, .signup {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"], button {
+    font-size: 14px;
+  }
+}
 
 /* Need Help Popup */
 body.active-help {
@@ -65,8 +197,10 @@ body.active-help {
   background: #f1f1f1;
   padding: 14px 28px;
   border-radius: 3px;
-  max-width: 600px;
-  min-width: 300px;
+  max-width: 900px;
+  min-width: 560px;
+  max-height: 700px;
+  overflow: auto;
 }
 
 .close-help {
@@ -129,6 +263,18 @@ body.active-help {
   margin-right: 2%;
 }
 
+/* Function Page CSS */
+
+.function {
+  font-size: larger;
+  padding: 3;
+}
 /* General CSS */
 
 
+/* Footer CSS */
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}

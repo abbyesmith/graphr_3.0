@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link'; 
-// import NavBar from './navbar';
 import {useEffect,useState} from 'react'
 import { Router, useRouter } from 'next/router'
-import './_app.js'
-import NavBar from './navbar';
+import '../_app.js'
+import NavBar from '../navbar.js';
+import Image from 'next/image'
+
 
 
 
@@ -35,11 +36,11 @@ export default function Login ({onLogin, setCurrUser}) {
             console.log(r)
             setIsLoading(false);
             if (r.ok) {
-              r.json().then((user) => {
-                setCurrUser(user);
-                console.log(user);
-                router.push('/home');
-              });
+                r.json().then((user) => {
+                    setCurrUser(user);
+                    console.log(user);
+                    router.push('/home');
+            });
             } else {
                 r.json().then((err) => setErrors(err.errors));
                 setShowError(true);
@@ -49,8 +50,8 @@ export default function Login ({onLogin, setCurrUser}) {
     }
 
     return (
-        <div>
-            {/* <NavBar/> */}
+        <div className='Login'>
+            <Image src = "/color_full.png" width = {300} height={180}/>
             <h1>Login</h1>
             {showError && (  // <-- conditional rendering of popup box
                 <div className="error-box">
@@ -59,24 +60,22 @@ export default function Login ({onLogin, setCurrUser}) {
                 </div>
             )}
             <form onSubmit = {handleSubmit}>
-                <p style={{color: "black"}}>Username</p>
+                <p>Username</p>
                 <input 
                     type="text" 
                     value={username} 
                     onChange = {(e)=>setUsername(e.target.value)}
-                    style={{color: "black"}} 
                 />
-                <p style={{color: "black"}}>Password</p>
+                <p>Password</p>
                 <input 
                     type="password" 
                     value={password} 
-                    onChange = {(e)=>setPassword(e.target.value)}
-                    style={{color: "black"}} 
+                    onChange = {(e)=>setPassword(e.target.value)} 
                 />
                 <p></p>
                 <button type="submit">Login</button>
             </form>
-            <button><Link href = "/signup">Create an account</Link></button>
+            {/* <button><Link href = "/signup">Create an account</Link></button> */}
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import React, {useRef} from 'react'
 import emailjs from '@emailjs/browser'
 import NavBar from './navbar';
+import Footer from './footer';
+
 
 
 const Email = ({currUser}) => {
@@ -55,6 +57,7 @@ const Email = ({currUser}) => {
                 </form>
             </div>
             <p><i>Did you know that you can update your profile to change your username, email, instructor's name & their email?</i></p>
+            <Footer/>
         </section>
     )
 }

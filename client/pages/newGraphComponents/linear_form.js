@@ -242,9 +242,9 @@ export default function Linear_Form( {currUser}) {
                 <div key={index}>
                     <label>
                     Point {index + 1}: (
-                    <input name="x" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
+                    <input name="x" type="number" step="0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }}/>
                     ,
-                    <input name="y" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
+                    <input name="y" type="number" step = "0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }}/>
                     )
                     </label>
                 </div>
