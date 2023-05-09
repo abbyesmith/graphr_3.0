@@ -10,7 +10,6 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    // const [image, setImage] = useState("")
     const [instructor_name, setInstructorName] = useState("");
     const [instructor_email, setInstructorEmail]= useState("")
     const [showAlert, setShowAlert] = useState(false)
@@ -34,13 +33,41 @@ export default function Signup({currUser,loggedIn,setcurrUser,setloggedIn}) {
             },
             body: JSON.stringify(data),
         })
-        .then(r => r.json())
+        .then(r => {
+            console.log(r.ok)
+            if (r.ok) {
+                console.log(r)
+                r.json().then(user => {
+                    console.log(user)
+                    setloggedIn(true)
+                    setShowAlert(true)
+                    }
+                )
+            } else {
+                if (r.status === 422) {
+                    alert("An account with that username already exists. Please choose a different username and submit the form again.")
+                } else {
+                    alert("there was an error creating the account. Please try again later.")
+                }
+            }
+            return(undefined)
+        })
         .then(user => {
             console.log(user)
-            setloggedIn(true)
-            setShowAlert(true)
+            if (user){
+                setloggedIn(true)
+                setShowAlert(true)
+            }
         })
-        // .then(()=> alert("Account successfully created. Please login to access Graphr"))
+        .catch(error => {
+            console.log(error)
+            alert("there was an error creating the account. Please try again")
+            // if (error.response.status === 422) {
+            //     alert("An account with that username already exists. Please choose a different username and submit the form again.")
+            // } else {
+            //     alert("there was an error creating the account. Please try again later.")
+            // }
+        })
     }
 
     useEffect(() => {
