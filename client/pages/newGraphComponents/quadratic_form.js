@@ -225,7 +225,7 @@ export default function Quadratic_Form( {currUser}) {
     const Plot = ({qobf, points, newPoints})=>{
         if (!qobf) {
             return <ScatterPlot points={points}/>;
-        } else if (qobf.rSquared != '1.0000') {
+        } else if (qobf.rSquared === '1.0000') {
             console.log(a)
             return (
                 <div>
@@ -272,7 +272,7 @@ export default function Quadratic_Form( {currUser}) {
             return (
                 <div>
                     <ScatterPlot points = {points} />
-                    <p>Your points do not form a linear function. Check the Need Help button for additional resources on graphing linear functions</p>
+                    <p>Your points do not form a quadratic function. Check the Need Help button for additional resources on graphing quadratic functions</p>
                 </div>
             )
         }

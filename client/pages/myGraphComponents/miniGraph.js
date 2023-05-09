@@ -27,8 +27,10 @@ export default function MiniGraphs({graph_id}){
         .catch((error) => console.error(error))
     }
 
-    const a = miniGraph[0]?.a
+    const a = miniGraph[0]?.a;
     const b = miniGraph[0]?.b
+    const c = miniGraph[0]?.c
+    const type = miniGraph[0]?.type
 
     const data = {
         labels: [],
@@ -60,7 +62,8 @@ export default function MiniGraphs({graph_id}){
                 {
                     ticks: {
                         min: -10,
-                        max: 10,                    },
+                        max: 10,
+                    },
                 },
             ],
         },
@@ -68,23 +71,41 @@ export default function MiniGraphs({graph_id}){
     const yValues = [];
     for (let x = -10; x<=10; x++){
         // This will need to be an if/else based on the type of equation
-        yValues.push(a * x + b);
+        if (type === 'Linear'){
+            yValues.push(a * x + b);
+        } else if (type ==='Quadratic'){
+            yValues.push(a*x**2 + b*x + c);
+        }
     }
 
-    data.datasets.push({
+    // if miniGraph.type === "Linear"{
+    // }
+    // ;
+    if (type === 'Linear'){
+        data.datasets.push({
         label: `y = ${a}x + ${b}`,
         data: yValues,
         fill: false,
         borderColor: 'blue',
         borderWidth: 1,
-    });
+        })
+    } else if (type === 'Quadratic'){
+        data.datasets.push({
+            label: `y = ${a.toFixed(2)}x^2 + ${b.toFixed(2)}x + ${c}`,
+            data: yValues,
+            fill: false,
+            borderColor: 'blue',
+            borderWidth: 1,
+            })
+    }
     
 
 
     return(
-        <div>
+        <div className = "miniGraphCard">
             <p>{`Assignment: ${miniGraph[0]?.hw_name}`}</p>
             <p>{`Problem: ${miniGraph[0]?.problem_name}`}</p>
+            <p>{`${miniGraph[0]?.type} Function`}</p>
             <Line data = {data} options={options}/>
         </div>
     )
