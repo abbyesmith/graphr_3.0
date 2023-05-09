@@ -2,14 +2,14 @@ import { useState, useRef } from 'react';
 import ScatterPlot from './linear_scatter';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
-import LineChart from './lineChart';
+import QuadraticChart from './quadraticChart';
 import SaveGraph from './saveGraph'
 import html2canvas from 'html2canvas'
 // import './_app.js'
 
 
 
-export default function Linear_Form( {currUser}) {
+export default function Quadratic_Form( {currUser}) {
     const canvasRef = useRef(null);
     const [showPopup, setShowPopup] = useState(false);
 
@@ -48,10 +48,12 @@ export default function Linear_Form( {currUser}) {
 
     const [points, setPoints] = useState([{x:0,y:0},{x:null,y:null},{x:null,y:null},{x:null,y:null},{x:null,y:null}]);
 
-    const [lobf, setLOBF] = useState("")
+    const [qobf, setQOBF] = useState("")
 
     const [a, setA] = useState("")
     const [b, setB] = useState("")
+    const [c, setC] = useState("")
+    const [det, setDet] = useState("")
 
     const handleChange = (e, index) => {
         const { name, value } = e.target; 
@@ -65,39 +67,81 @@ export default function Linear_Form( {currUser}) {
         })
     };
     
-    const calculateLOBF = (points) => {
+    const calculateQOBF = (points) => {
         const n = points.length;
-        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-        
-        for (let i = 0; i < points.length; i++) {
-            const x = points[i].x;
-            const y = points[i].y;
-            
-            sumX += x;
-            sumY += y;
-            sumXY += x * y;
-            sumX2 += x * x;
-        }
-        
-        const a = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-        console.log(a)
-        setA(a)
-        const b = (sumY - a * sumX) / n;
-        setB(b)
-        console.log(b)
+        console.log(n)
+        let y = [];
+        let x = [];
+        let xSum = 0;
+        let xAvg = 0;
 
-        let tss = 0, rss = 0, yMean = sumY / n;
+        let ySum = 0;
+        let yAvg = 0;
+
+        let x2Sum = 0;
+        let x2Avg = 0;
+
+        let sxx = 0;
+        let sxx2 = 0;
+        let sx2x2 = 0;
+
+        let sxy = 0;
+        let sx2y = 0;
+        
+        //Calculate the sums of x, y, x^2, x^3, x^4, and x^2y:
+        for (let i = 0; i <= 4; i++) {
+            x.push(points[i].x);
+            // console.log(x)
+            y.push(points[i].y);
+            // console.log(y)
+
+            xSum += x[i];
+                console.log(xSum)
+            xAvg = xSum/points.length;
+                console.log(xAvg)
+            ySum += y[i];
+                console.log(ySum)
+            yAvg = ySum/points.length;
+                console.log(yAvg)
+            x2Sum += x[i]* x[i]
+                console.log(x2Sum)
+            x2Avg = x2Sum/5;
+                console.log(x2Avg)
+            sxx = (x[0]-xAvg)**2 + (x[1]-xAvg)**2+ (x[2]-xAvg)**2 + (x[3]-xAvg)**2 + (x[4]-xAvg)**2 ;
+                console.log(sxx)
+            sxy = (x[0]-xAvg)*(y[0]-yAvg) + (x[1]-xAvg)*(y[1]-yAvg) + (x[2]-xAvg)*(y[2]-yAvg) + (x[3]-xAvg)*(y[3]-yAvg) + (x[4]-xAvg)*(y[4]-yAvg);
+                console.log(sxy)
+            sxx2 = (x[0]-xAvg)*(x[0]**2-x2Avg) + (x[1]-xAvg)*(x[1]**2-x2Avg) + (x[2]-xAvg)*(x[2]**2-x2Avg) + (x[3]-xAvg)*(x[3]**2-x2Avg) + (x[4]-xAvg)*(x[4]**2-x2Avg)
+                console.log(sxx2)
+            sx2x2 = (x[0]**2-x2Avg)*(x[0]**2-x2Avg) + (x[1]**2-x2Avg)*(x[1]**2-x2Avg) + (x[2]**2-x2Avg)*(x[2]**2-x2Avg) + (x[3]**2-x2Avg)*(x[3]**2-x2Avg) + (x[4]**2-x2Avg)*(x[4]**2-x2Avg)
+                console.log(sx2x2)
+            sx2y = (x[0]**2-x2Avg)*(y[0]-yAvg) + (x[1]**2-x2Avg)*(y[1]-yAvg) + (x[2]**2-x2Avg)*(y[2]-yAvg) + (x[3]**2-x2Avg)*(y[3]-yAvg) + (x[4]**2-x2Avg)*(y[4]-yAvg);
+                console.log(sx2y)
+        }
+
+        let b = ((sxy * sx2x2 - sx2y * sxx2) / (sxx * sx2x2 - (sxx2)**2))
+            console.log(b)
+            setB(b)
+        
+        let a = ((sx2y * sxx - sxy * sxx2) / (sxx * sx2x2  - (sxx2)**2))
+            console.log(a)
+            setA(a)
+
+        let c = yAvg - b * xAvg - a * x2Avg
+            console.log(c)
+            setC(c)
+        // Calculate rSquared
+        let tss = y.reduce((sum, value) => sum + (value - yAvg) ** 2, 0);
+        let sse = 0
+
         for (let i = 0; i < points.length; i++){
-            const y = points[i].y;
-            const yPredicted = a * points[i].x + b;
-            tss += (y - yMean) ** 2;
-            rss += (y - yPredicted) ** 2;
+            let predictedY = a *x[i]**2 + b*x[i] + c;
+            sse += (y[i] - predictedY)**2
         }
 
-        const rSquared = 1 - (rss / tss)
+        const rSquared = 1 - (sse / tss)
         
-        const equation = (x) => `${a.toFixed(2)}x + ${b.toFixed(2)}`
-
+        const equation = (x) => `${a.toFixed(2)}x**2 + ${b.toFixed(2)}x + ${c}}`
             
         const data = {
             labels: [],
@@ -127,42 +171,42 @@ export default function Linear_Form( {currUser}) {
         }
         const options = {
             aspectRatio: 1,
-            scales: {
-                xAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: false,
-                            fontColor: 'black',
-                            fontWeight: 'bold'
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'X Axis Label',
-                            fontColor: 'black',
-                            fontWeight: 'bold'
-                        }
-                    },
-                ],
-                yAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: false,
-                            fontColor: 'black',
-                            fontWeight: 'bold'
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Y Axis Label',
-                            fontColor: 'black',
-                            fontWeight: 'bold'
-                        }
-                    },
-                ],
-            },
+            // scales: {
+            //     xAxes: [
+            //         {
+            //             ticks: {
+            //                 beginAtZero: false,
+            //                 fontColor: 'black',
+            //                 fontWeight: 'bold'
+            //             },
+            //             scaleLabel: {
+            //                 display: true,
+            //                 labelString: 'X Axis Label',
+            //                 fontColor: 'black',
+            //                 fontWeight: 'bold'
+            //             }
+            //         },
+            //     ],
+            //     yAxes: [
+            //         {
+            //             ticks: {
+            //                 beginAtZero: false,
+            //                 fontColor: 'black',
+            //                 fontWeight: 'bold'
+            //             },
+            //             scaleLabel: {
+            //                 display: true,
+            //                 labelString: 'Y Axis Label',
+            //                 fontColor: 'black',
+            //                 fontWeight: 'bold'
+            //             }
+            //         },
+            //     ],
+            // },
         };
             
         return {
-            equation: `y = ${a.toFixed(2)}x + ${b.toFixed(2)}`,
+            equation: `${a.toFixed(2)}x**2 + ${b.toFixed(2)}x + ${c}}`,
             rSquared: rSquared.toFixed(4),
             data: data,
             options: options
@@ -170,24 +214,23 @@ export default function Linear_Form( {currUser}) {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const lobf = calculateLOBF(points)
-        console.log(lobf.data)
+        const qobf = calculateQOBF(points)
+        console.log(qobf.data)
 
-        setLOBF(lobf)
-        console.log(lobf);
-        console.log(a, b)
+        setQOBF(qobf)
+        console.log(qobf);
+        console.log(a, b, c)
     };
 
-    const Plot = ({lobf, points, newPoints})=>{
-        if (!lobf) {
+    const Plot = ({qobf, points, newPoints})=>{
+        if (!qobf) {
             return <ScatterPlot points={points}/>;
-        } else if (lobf.rSquared === '1.0000') {
+        } else if (qobf.rSquared != '1.0000') {
             console.log(a)
             return (
                 <div>
-                    <h3>Linear Points</h3>
                     <div id = "capture" style = {{width: 700}}>                    
-                        <LineChart  data = {lobf.data} options = {lobf.options} lineEquation={lobf.equation} a = {a} b = {b}/>,
+                        <QuadraticChart  data = {qobf.data} options = {qobf.options} lineEquation={qobf.equation} a = {a} b = {b} c = {c}/>,
                     </div>
                     <button onClick = {capture}>Take a screenshot</button>
                     {showPopup && (
@@ -221,7 +264,7 @@ export default function Linear_Form( {currUser}) {
                             </div>
                         </div>
                     )}
-                    <SaveGraph newPoints = {points} currUser={currUser} equation = {lobf.equation} a = {a} b ={b}/>
+                    <SaveGraph newPoints = {points} currUser={currUser} equation = {qobf.equation} a = {a} b ={b} c = {c}/>
                 </div>
             )
 
@@ -238,6 +281,7 @@ export default function Linear_Form( {currUser}) {
 
     return (
         <div>
+            <h3>Quadratic Points</h3>
             <form onSubmit={handleSubmit}>
                 {[0, 1, 2, 3, 4].map((index) => (
                 <div key={index}>
@@ -253,7 +297,7 @@ export default function Linear_Form( {currUser}) {
                 <button type="submit">Submit</button>
             </form>
             <div >
-                {Plot({lobf, points, a, b})}
+                {Plot({qobf, points, a, b})}
                 <canvas ref = {canvasRef} />
             </div>
         </div>

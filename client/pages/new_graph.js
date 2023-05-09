@@ -21,7 +21,7 @@ export default function NewGraph ({currUser}) {
             <h2>What type of function are your graphing?</h2>
             <ul>
                 <li>
-                    <Link href = "/graph_page" className = "function">Linear Function</Link>
+                    <Link href = "/linear_graph_page" className = "function">Linear Function</Link>
                     <span class="tooltip"> ❓ 
                         <span class="tooltiptext">
                             <p>Linear functions are equations that create a straight line when graphed. They have a constant rate of change.</p> 
@@ -34,7 +34,7 @@ export default function NewGraph ({currUser}) {
                     </span>
                 </li>
                 <li>
-                <Link href = "/graph_page" className = "function">Quadratic Function</Link>
+                <Link href = "/quadratic_graph_page" className = "function">Quadratic Function</Link>
                     <span class="tooltip"> ❓ 
                         <span class="tooltiptext">
                             <p>Quadratic functions are equations that create a parabolic curve when graphed. THey have an index of 2.</p> 
