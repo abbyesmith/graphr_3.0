@@ -26,6 +26,7 @@ export default function NavBar () {
                         <li><Link href = "/new_graph" className = {styles.navlink}>New Graph</Link></li>
                         <li><Link href = "/my_graphs" className = {styles.navlink}>My Saved Graphs</Link></li>
                         <li><Link href = "/profile" className = {styles.navlink}>Profile</Link></li>
+                        <li><Link href = "/email" className = {styles.navlink}>Email My Teacher</Link></li>
                         <li><Link href = "/" className = {styles.navlink}>Log in / Log Out</Link></li>
                     </ul>
                     <div className = {`${styles.hamburger} ${isOpen && styles.active}`} onClick = {toggleMenu}>
