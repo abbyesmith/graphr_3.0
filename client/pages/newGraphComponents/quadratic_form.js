@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ScatterPlot from './linear_scatter';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
@@ -222,6 +222,10 @@ export default function Quadratic_Form( {currUser}) {
         console.log(a, b, c)
     };
 
+    function clearBtn(){
+        var element = document.getElementById("pointsForm");
+            element.reset()
+    }
     const Plot = ({qobf, points, newPoints})=>{
         if (!qobf) {
             return <ScatterPlot points={points}/>;
@@ -282,19 +286,22 @@ export default function Quadratic_Form( {currUser}) {
     return (
         <div>
             <h3>Quadratic Points</h3>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id = "pointsForm" className = "pointsForm" autocomplete="off">
                 {[0, 1, 2, 3, 4].map((index) => (
-                <div key={index}>
+                <div key={index} className='inputField'>
                     <label>
                     Point {index + 1}: (
-                    <input name="x" type="number" step="0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }}/>
+                    <input name="x" type="number" step="0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }} className = "xValue" required/>
                     ,
-                    <input name="y" type="number" step = "0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }}/>
+                    <input name="y" type="number" step = "0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }} className = "yValue" required/>
                     )
                     </label>
                 </div>
                 ))}
-                <button type="submit">Submit</button>
+                <span className = "form-btns">
+                    <button type="submit"  className="submitBtn">Submit</button>
+                    <button type="button" onClick = {clearBtn}>Clear Form</button>
+                </span>
             </form>
             <div >
                 {Plot({qobf, points, a, b})}

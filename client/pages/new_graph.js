@@ -37,20 +37,7 @@ export default function NewGraph ({currUser}) {
                 <Link href = "/quadratic_graph_page" className = "function">Quadratic Function</Link>
                     <span class="tooltip"> ❓ 
                         <span class="tooltiptext">
-                            <p>Quadratic functions are equations that create a parabolic curve when graphed. THey have an index of 2.</p> 
-                            <p>Here are a few examples of quadratic functions:</p> 
-                            <li>y = <sup>3</sup>&frasl;<sub>2</sub>(x-7)(x+1)</li>
-                            <br></br>
-                            <li>y = -2x<sup>2</sup>+ 3x - 7</li>
-                            <br></br>
-                            <li>y = <sup>1</sup>&frasl;<sub>4</sub>(x - 6) - 3 </li></span>
-                    </span>
-                </li>
-                {/* <li>
-                <Link href = "/graph_page" className = "function">Cubic Function</Link>
-                    <span class="tooltip"> ❓ 
-                        <span class="tooltiptext">
-                            <p>Quadratic functions are equations that create a parabolic curve when graphed. THey have an index of 2.</p> 
+                            <p>Quadratic functions are equations that create a parabolic curve when graphed. They have an index of 2.</p> 
                             <p>Here are a few examples of quadratic functions:</p> 
                             <li>y = <sup>3</sup>&frasl;<sub>2</sub>(x-7)(x+1)</li>
                             <br></br>
@@ -60,6 +47,18 @@ export default function NewGraph ({currUser}) {
                     </span>
                 </li>
                 <li>
+                <Link href = "/cubic_graph_page" className = "function">Cubic Function</Link>
+                    <span class="tooltip"> ❓ 
+                        <span class="tooltiptext">
+                            <p>Cubic functions are equations that create a cubic wiggle when graphed. They have an index of 3.</p> 
+                            <p>Here are a few examples of quadratic functions:</p> 
+                            <li>y = <sup>3</sup>&frasl;<sub>2</sub>(x-7)(x+1)(2x)</li>
+                            <br></br>
+                            <li>y = -2x<sup>3</sup>+ x<sup>2</sup> - 3x - 7</li>
+                        </span>
+                    </span>
+                </li>
+                {/* <li>
                 <Link href = "/graph_page" className = "function">Absolute Value Function</Link>
                     <span class="tooltip"> ❓ 
                         <span class="tooltiptext">

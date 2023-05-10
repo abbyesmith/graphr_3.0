@@ -278,3 +278,15 @@ body.active-help {
   bottom: 0;
   right: 0;
 }
+
+/* Form CSS */
+.form-btns{
+  display: inline-flex;
+  gap: 15%;
+  width: 40%;
+}
+
+.inputField{
+  padding: 0.5%;
+  margin-left: 5%
+}
