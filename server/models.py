@@ -8,7 +8,6 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
-import re
 
 from config import db, bcrypt
 
@@ -18,7 +17,8 @@ class Student(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique = True, nullable = False)
     email = db.Column(db.String, nullable = False)
-    _password_hash = db.Column(db.String, nullable = False)
+    _password_hash = db.Column(db.String)
+    # image = db.Column(db.String)
     instructor_name = db.Column(db.String)
     instructor_email = db.Column(db.String)
     theme = db.Column(db.String)
@@ -43,41 +43,8 @@ class Student(db.Model, SerializerMixin):
     
     # Add validation for the image, theme and instructor email address
 
-    @validates('email')
-    def validate_email(self, key, email):
-        print(email)
-        if len(email)<5:
-            raise ValueError('Please submit a valid email address')
-        # if not re.search('@'):
-        #     raise ValueError('Please submit a valid email address')
-        if email.count('@') != 1:
-            raise ValueError('Email address must contain exactly one "@" symbol.')
-        return email
-    
-    @validates('instructor_email')
-    def validate_instructor_email(self, key, instructor_email):
-        if len(instructor_email)<5:
-            raise ValueError('Please submit a valid email address for your instructor')
-        # if not re.search('@'):
-        #     raise ValueError('Please submit a valid email address')
-        if instructor_email.count('@') != 1:
-            raise ValueError('Instructor email address must contain exactly one "@" symbol.')
-        return instructor_email
-    
-    # @validates('password_hash')
-    # def validate_password(self, key, password):
-    #     if len(password)<6:
-    #         raise ValueError('Password must be at least 6 characters long')
-    #     if not re.search('[a-zA-Z]', password):
-    #         raise ValueError('Password must contain at least one letter')
-    #     if not re.search('[0-9]', password):
-    #         raise ValueError('Password must contain at least one number')
-    #     if not re.search('[!@#$%^&*()_-+=?/"~<>[]:;\|]', password):
-    #         raise ValueError('Password must contain at least one special character: !@#$%^&*()_-+=?/"~<>[]:;\|')
-    #     return password
-    
-# def __repr__(self):
-#     return f'<Player {self.username}>'
+    def __repr__(self):
+        return f'<Player {self.username}>'
 
 class Graph(db.Model, SerializerMixin):
     __tablename__ = 'graphs'

@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import NavBar from './navbar';
 import './_app.js'
-import MiniGraphs from './myGraphComponents/miniGraph';
-import Footer from './footer'
+import MiniGraphs from './miniGraph';
 
 
 export default function MyGraphs({currUser}){
@@ -47,7 +46,6 @@ export default function MyGraphs({currUser}){
                     <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id} />
                 ))}
             </div>
-            <Footer />
         </div>    
     )
 }

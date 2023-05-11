@@ -132,34 +132,18 @@ export default function Linear_Form( {currUser}) {
                     {
                         ticks: {
                             beginAtZero: false,
-                            fontColor: 'black',
-                            fontWeight: 'bold'
                         },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'X Axis Label',
-                            fontColor: 'black',
-                            fontWeight: 'bold'
-                        }
                     },
                 ],
                 yAxes: [
                     {
                         ticks: {
                             beginAtZero: false,
-                            fontColor: 'black',
-                            fontWeight: 'bold'
                         },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Y Axis Label',
-                            fontColor: 'black',
-                            fontWeight: 'bold'
-                        }
                     },
                 ],
             },
-        };
+        }
             
         return {
             equation: `y = ${a.toFixed(2)}x + ${b.toFixed(2)}`,
@@ -178,11 +162,6 @@ export default function Linear_Form( {currUser}) {
         console.log(a, b)
     };
 
-    function clearBtn(){
-        var element = document.getElementById("pointsForm");
-            element.reset()
-    }
-
     const Plot = ({lobf, points, newPoints})=>{
         if (!lobf) {
             return <ScatterPlot points={points}/>;
@@ -190,9 +169,8 @@ export default function Linear_Form( {currUser}) {
             console.log(a)
             return (
                 <div>
-                    <h3>Linear Points</h3>
                     <div id = "capture" style = {{width: 700}}>                    
-                        <LineChart  data = {lobf.data} options = {lobf.options} lineEquation={lobf.equation} a = {a} b = {b}/>,
+                        <LineChart  data = {lobf.data} options = {lobf.data} lineEquation={lobf.equation} a = {a} b = {b}/>,
                     </div>
                     <button onClick = {capture}>Take a screenshot</button>
                     {showPopup && (
@@ -243,20 +221,19 @@ export default function Linear_Form( {currUser}) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} autocomplete="off">
+            <form onSubmit={handleSubmit}>
                 {[0, 1, 2, 3, 4].map((index) => (
                 <div key={index}>
                     <label>
                     Point {index + 1}: (
-                    <input name="x" type="number" step="0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }} required/>
+                    <input name="x" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
                     ,
-                    <input name="y" type="number" step = "0.01" onChange={(e) => handleChange(e, index)} style={{ width: 40 }} required/>
+                    <input name="y" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
                     )
                     </label>
                 </div>
                 ))}
                 <button type="submit">Submit</button>
-                <button type='button' onClick = {clearBtn}>Clear Form</button>
             </form>
             <div >
                 {Plot({lobf, points, a, b})}
