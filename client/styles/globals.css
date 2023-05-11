@@ -1,7 +1,6 @@
 /* @tailwind base;
-/* @tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -264,44 +263,36 @@ body.active-help {
   margin-right: 2%;
 }
 
-/* Need Help Popup */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
+/* Function Page CSS */
+
+.function {
+  font-size: larger;
+  padding: 3;
+}
+/* General CSS */
+
+
+/* Footer CSS */
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  position: absolute;
-  z-index: 1;
-  background-color: black;
-  color: #fff;
-  padding: 5px;
-  border-radius: 6px;
-  width: 200px;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -100px;
-  opacity: 0;
-  transition: opacity 0.3s;
+/* Form CSS */
+.form-btns{
+  display: inline-flex;
+  gap: 15%;
+  width: 40%;
 }
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+.inputField{
+  padding: 0.5%;
+  margin-left: 5%
 }
 
-/* minigraphs */
-.mini-graph-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  padding: 2%, 2%
-}
+/* Home Page */
 
-.mini-graph {
-  width: 20%;
-  margin-right: 2%;
-}
+/* .content {
+  display: none;
+} */

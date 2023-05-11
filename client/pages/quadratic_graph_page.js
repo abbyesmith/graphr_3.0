@@ -7,7 +7,7 @@ import Footer from './footer';
 import "./_app.js"
 
 
-export default function LinearGraphPage({currUser}) {
+export default function QuadraticGraphPage({currUser}) {
 
     const canvasRef = useRef(null)
     

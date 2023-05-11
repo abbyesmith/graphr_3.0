@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from './navbar';
-import Link from 'next/link'
+import Link from 'next/link';
+import Footer from './footer';
 
 
 
@@ -124,6 +125,7 @@ export default function Profile({ currUser }) {
                     </div>
                 </div>
             )}
+            <Footer />
         </div>
     );
 }
