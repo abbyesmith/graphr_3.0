@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "PORT=4000 react-scripts start",
+    "build": "next build && (cd ../server && npm install)",
+    "start": "node _app.js",
     "lint": "next lint"
   },
   "dependencies": {

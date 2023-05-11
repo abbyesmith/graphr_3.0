@@ -7,6 +7,17 @@ export default function App({ Component, pageProps }) {
   const [loggedIn, setloggedIn] = useState(false);
   const router = useRouter();
 
+  // _app.get("/*", function (req, res){
+  //   res.sendFile(
+  //     path.join(__dirname, "../client/build/index.html"),
+  //     function (err){
+  //       if (err) {
+  //         res.status(500).send(err)
+  //       }
+  //     }
+  //   )
+  // })
+
   useEffect(()=>{
     fetch('/check_session')
     .then(r=>r.json())

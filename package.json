@@ -5,5 +5,25 @@
     "html2canvas": "^1.4.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0"
-  }
+  },
+  "name": "graphr_3.0",
+  "description": "Graphr with Chart.JS",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abbyesmith/graphr_3.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abbyesmith/graphr_3.0/issues"
+  },
+  "homepage": "https://github.com/abbyesmith/graphr_3.0#readme"
 }
