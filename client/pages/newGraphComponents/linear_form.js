@@ -162,6 +162,11 @@ export default function Linear_Form( {currUser}) {
         console.log(a, b)
     };
 
+    function clearBtn(){
+        var element = document.getElementById("pointsForm");
+            element.reset()
+    }
+
     const Plot = ({lobf, points, newPoints})=>{
         if (!lobf) {
             return <ScatterPlot points={points}/>;
@@ -221,9 +226,10 @@ export default function Linear_Form( {currUser}) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <h3>Linear Points</h3>
+            <form onSubmit={handleSubmit} id = "pointsForm" className = "pointsForm" autocomplete="off">
                 {[0, 1, 2, 3, 4].map((index) => (
-                <div key={index}>
+                <div key={index} className='inputField'>
                     <label>
                     Point {index + 1}: (
                     <input name="x" type="number" onChange={(e) => handleChange(e, index)} style={{ width: 30 }}/>
@@ -233,8 +239,10 @@ export default function Linear_Form( {currUser}) {
                     </label>
                 </div>
                 ))}
-                <button type="submit">Submit</button>
-            </form>
+                <span className = "form-btns">
+                    <button type="submit"  className="submitBtn">Submit</button>
+                    <button type="button" onClick = {clearBtn}>Clear Form</button>
+                </span>            </form>
             <div >
                 {Plot({lobf, points, a, b})}
                 <canvas ref = {canvasRef} />

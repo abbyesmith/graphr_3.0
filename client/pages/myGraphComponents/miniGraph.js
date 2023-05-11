@@ -59,25 +59,41 @@ export default function MiniGraphs({graph_id, student_graph_id}){
         data.datasets[0].data.push( (i))
     }
     const options = {
-        scales: {
-            xAxes: [
-                {
-                    ticks: {
-                        min: -10,
-                        max: 10,
-                    },
+        // scales: {
+        //     xAxes: [
+        //         {
+        //             ticks: {
+        //                 min: -10,
+        //                 max: 10,
+        //             },
+        //         },
+        //     ],
+        //     yAxes: [
+        //         {
+        //             ticks: {
+        //                 min: -10,
+        //                 max: 10,
+        //             },
+        //         },
+        //     ],
+        // },
+        aspectRatio: 1,
+            scales: {
+              xAxes: [{
+                ticks: {
+                  min: -10,
+                  max: 10,
                 },
-            ],
-            yAxes: [
-                {
-                    ticks: {
-                        min: -10,
-                        max: 10,
-                    },
+              }],
+              yAxes: [{
+                ticks: {
+                  min: -10,
+                  max: 10,
                 },
-            ],
-        },
-    }
+              }],
+            },
+          };
+    
     const yValues = [];
     for (let x = -10; x<=10; x++){
         // This will need to be an if/else based on the type of equation
@@ -117,7 +133,7 @@ export default function MiniGraphs({graph_id, student_graph_id}){
             <p>{`Problem: ${miniGraph[0]?.problem_name}`}</p>
             <p>{`${miniGraph[0]?.type} Function`}</p>
             <Line data = {data} options={options}/>
-            <button onClick = {deleteOneGraph} classnName = 'trashbtn'>🗑️</button>
+            <button onClick = {deleteOneGraph} className = 'trashbtn'>🗑️</button>
         </div>
     )
 
