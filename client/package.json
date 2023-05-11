@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && (cd ../server && npm install)",
-    "start": "node _app.js",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
