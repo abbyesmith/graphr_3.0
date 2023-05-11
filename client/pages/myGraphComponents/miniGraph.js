@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Chart as ChartJS} from "chart.js/auto"
 import { Line } from 'react-chartjs-2'
 
-export default function MiniGraphs({graph_id}){
+export default function MiniGraphs({graph_id, student_graph_id}){
 
     const [miniGraph, setMiniGraph] = useState([])
 
@@ -25,6 +25,16 @@ export default function MiniGraphs({graph_id}){
             console.log(typeof(info[0].a))
         })
         .catch((error) => console.error(error))
+    }
+
+    const deleteOneGraph = () => {
+        fetch(`/one_student_graph/${student_graph_id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        window.location.reload();
     }
 
     const a = miniGraph[0]?.a;
@@ -107,6 +117,7 @@ export default function MiniGraphs({graph_id}){
             <p>{`Problem: ${miniGraph[0]?.problem_name}`}</p>
             <p>{`${miniGraph[0]?.type} Function`}</p>
             <Line data = {data} options={options}/>
+            <button onClick = {deleteOneGraph} classnName = 'trashbtn'>🗑️</button>
         </div>
     )
 

@@ -44,7 +44,7 @@ export default function MyGraphs({currUser}){
             <h2>My Graphs</h2>
             <div className="mini-graph-container">
                 {userGraphs.map(student_graph => (
-                    <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id} />
+                    <MiniGraphs key = {student_graph.graph_id} graph_id = {student_graph.graph_id } student_graph_id = {student_graph.id} />
                 ))}
             </div>
             <Footer />

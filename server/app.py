@@ -150,6 +150,7 @@ class Graph_By_ID(Resource):
             })
         print(serialize_graphs)
         return(serialize_graphs), 200
+    
 
 api.add_resource(Graph_By_ID, '/graph_by_id/<int:id>',)
 
@@ -198,15 +199,26 @@ class Graph_By_Student_Id(Resource):
 api.add_resource(Graph_By_Student_Id, '/graph_by_student_id/<int:student_id>')
 
 
+# class One_Student_Graph(Resource):
+
+#     def delete(self, id):
+#         one_student_graph = Student_Graph.query.filter(Student_Graph.id == id).first()
+#         db.session.delete(one_student_graph)
+#         db.session.commit()
+#         # return make_response(jsonify(one_student_graph.to_dict()), 204)
+#         return make_response(jsonify({}), 204)
+
+# api.add_resource(One_Student_Graph, '/one_student_graph/<int:id>')
+
+
 class One_Student_Graph(Resource):
 
     def delete(self, id):
         one_student_graph = Student_Graph.query.filter(Student_Graph.id == id).first()
         db.session.delete(one_student_graph)
         db.session.commit()
-        return make_response(jsonify(one_student_graph.to_dict()), 200)
+        return make_response(jsonify({"deleted": "true"}), 200)
 api.add_resource(One_Student_Graph, '/one_student_graph/<int:id>')
-
 
 class Login(Resource):
 
