@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../_app.js'
 
-export default function SaveGraph( {newPoints, currUser, equation, a, b}) {
+export default function SaveGraph( {newPoints, currUser, equation, a, b, c}) {
     // console.log(newPoints)
     console.log(a, b)
     console.log(equation)
@@ -30,7 +30,8 @@ export default function SaveGraph( {newPoints, currUser, equation, a, b}) {
             "problem_name": problem_name,         
             "equation": equation,
             "a": a,
-            "b": b 
+            "b": b,
+            "c": c,
         }
 
         fetch ("/all_graphs", {
