@@ -104,9 +104,7 @@ export default function MiniGraphs({graph_id, student_graph_id}){
         }
     }
 
-    // if miniGraph.type === "Linear"{
-    // }
-    // ;
+
     if (type === 'Linear'){
         data.datasets.push({
         label: `y = ${a}x + ${b}`,
@@ -134,6 +132,7 @@ export default function MiniGraphs({graph_id, student_graph_id}){
             <p>{`${miniGraph[0]?.type} Function`}</p>
             <Line data = {data} options={options}/>
             <button onClick = {deleteOneGraph} className = 'trashbtn'>🗑️</button>
+            <button className='editbtn'>✏️</button>
         </div>
     )
 
