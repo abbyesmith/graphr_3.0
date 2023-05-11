@@ -37,6 +37,35 @@ export default function MiniGraphs({graph_id, student_graph_id}){
         window.location.reload();
     }
 
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [updateGraph, setUpdateGraph] = useState({
+        hw_name: graph_id.hw_name,
+        problem_name: graph_id.problem_name,
+        type: graph_id.type
+    })
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUpdateGraph((prevState) => ({ ...prevState, [name]: value }));
+    };
+
+    const handleEditGraph = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveGraph = async () => {
+        const response = await fetch(`/graph_by_id/${graph_id}`,{
+            method: 'PATCH',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updateGraph)
+        })
+        setIsEditing(false);
+        window.location.reload();
+    }
+
     const a = miniGraph[0]?.a;
     const b = miniGraph[0]?.b
     const c = miniGraph[0]?.c
@@ -59,44 +88,25 @@ export default function MiniGraphs({graph_id, student_graph_id}){
         data.datasets[0].data.push( (i))
     }
     const options = {
-        // scales: {
-        //     xAxes: [
-        //         {
-        //             ticks: {
-        //                 min: -10,
-        //                 max: 10,
-        //             },
-        //         },
-        //     ],
-        //     yAxes: [
-        //         {
-        //             ticks: {
-        //                 min: -10,
-        //                 max: 10,
-        //             },
-        //         },
-        //     ],
-        // },
         aspectRatio: 1,
             scales: {
-              xAxes: [{
-                ticks: {
-                  min: -10,
-                  max: 10,
-                },
-              }],
-              yAxes: [{
-                ticks: {
-                  min: -10,
-                  max: 10,
-                },
-              }],
+                xAxes: [{
+                    ticks: {
+                    min: -10,
+                    max: 10,
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                    min: -10,
+                    max: 10,
+                    },
+                }],
             },
-          };
+        };
     
     const yValues = [];
     for (let x = -10; x<=10; x++){
-        // This will need to be an if/else based on the type of equation
         if (type === 'Linear'){
             yValues.push(a * x + b);
         } else if (type ==='Quadratic'){
@@ -127,13 +137,57 @@ export default function MiniGraphs({graph_id, student_graph_id}){
 
     return(
         <div className = "miniGraphCard">
-            <p>{`Assignment: ${miniGraph[0]?.hw_name}`}</p>
-            <p>{`Problem: ${miniGraph[0]?.problem_name}`}</p>
-            <p>{`${miniGraph[0]?.type} Function`}</p>
-            <Line data = {data} options={options}/>
-            <button onClick = {deleteOneGraph} className = 'trashbtn'>🗑️</button>
-            <button className='editbtn'>✏️</button>
+            {isEditing ? (
+                <div>
+                <div>
+                    <p>{`Assignment: ${miniGraph[0]?.hw_name}`}</p>
+                    <p>{`Problem: ${miniGraph[0]?.problem_name}`}</p>
+                    <p>{`${miniGraph[0]?.type} Function`}</p>
+                    <Line data = {data} options={options}/>
+                    <button onClick = {deleteOneGraph} className = 'trashbtn'>🗑️</button>
+                    <button className='editbtn' onClick={handleEditGraph}>✏️</button>
+                </div>
+                <form>
+                    <label>
+                        Homework Name:
+                        <input
+                        type="text"
+                        name="hw_name"
+                        value={updateGraph.hw_name}
+                        onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Problem Name:
+                        <input
+                        type="text"
+                        name="problem_name"
+                        value={updateGraph.problem_name}
+                        onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                    Function Type:
+                        <input
+                        type="text"
+                        name="type"
+                        value={updateGraph.problem_name}
+                        onChange={handleInputChange}
+                        />
+                    </label>
+                    <button type="button" onClick={handleSaveGraph}>Save</button>
+                </form>
+                </div>
+            ) : (
+                <div>
+                    <p>{`Assignment: ${miniGraph[0]?.hw_name}`}</p>
+                    <p>{`Problem: ${miniGraph[0]?.problem_name}`}</p>
+                    <p>{`${miniGraph[0]?.type} Function`}</p>
+                    <Line data = {data} options={options}/>
+                    <button onClick = {deleteOneGraph} className = 'trashbtn'>🗑️</button>
+                    <button className='editbtn' onClick={handleEditGraph}>✏️</button>
+                </div>)}
         </div>
+            
     )
-
 }
