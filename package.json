@@ -3,18 +3,18 @@
     "chart.js": "^4.2.1",
     "copy-image-clipboard": "^2.1.2",
     "html2canvas": "^1.4.1",
+    "npm": "^9.8.0",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0"
+    "react-chartjs-2": "^5.2.0",
+    "start": "^5.1.0"
   },
   "name": "graphr_3.0",
   "description": "Graphr with Chart.JS",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "next start"
-    
   },
   "repository": {
     "type": "git",

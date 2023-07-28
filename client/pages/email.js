@@ -24,7 +24,7 @@ const Email = ({currUser}) => {
         emailjs.sendForm('service_d26dps5', 'template_zcchehl', form.current, 'sKoaJ5-AXg8RNDO8G')
             .then((result) => {
                 console.log(result.text);
-                window.alert("Graph saved successfully!")
+                window.alert("Email successfully sent!")
             }, (error) => {
                 console.log(error.text);
             });

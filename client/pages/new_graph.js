@@ -43,10 +43,10 @@ export default function NewGraph ({currUser}) {
                             <br></br>
                             <li>y = -2x<sup>2</sup>+ 3x - 7</li>
                             <br></br>
-                            <li>y = <sup>1</sup>&frasl;<sub>4</sub>(x - 6) - 3 </li></span>
+                            <li>y = <sup>1</sup>&frasl;<sub>4</sub>(x - 6)<sup>2</sup> - 3 </li></span>
                     </span>
                 </li>
-                <li>
+                {/* <li>
                 <Link href = "/cubic_graph_page" className = "function">Cubic Function</Link>
                     <span class="tooltip"> ❓ 
                         <span class="tooltiptext">
@@ -57,7 +57,7 @@ export default function NewGraph ({currUser}) {
                             <li>y = -2x<sup>3</sup>+ x<sup>2</sup> - 3x - 7</li>
                         </span>
                     </span>
-                </li>
+                </li> */}
                 {/* <li>
                 <Link href = "/graph_page" className = "function">Absolute Value Function</Link>
                     <span class="tooltip"> ❓ 
