@@ -37,6 +37,7 @@ const Email = ({currUser}) => {
             <div>
                 <NavBar/>
                 <h2>Contact Your Teacher</h2>
+                <h3>This feature is currently exclusive to Gmail. Messages sent from or received by an email address that does not end in "@gmail.com" will not be delivered successfully. We apologize for any inconvenience caused and assure you that we are actively working to expand our services to include other email providers.</h3>
                 <form ref={form} onSubmit={sendEmail}>
                     <p>Your Name:</p>
                     <input type="text" placeholder='Student Name' name = "user_name"  defaultValue = {currUser.username} required/>
